@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">veWTN</string>
+
+    <string name="select_function_title">请选择推流拉流</string>
+
+    <string name="publish_title">推流</string>
+    <string name="publish_sub_title">便捷接入实现标准WebRTC推流</string>
+
+    <string name="subscribe_title">拉流</string>
+    <string name="subscribe_sub_title">200ms延时标准WebRTC拉流</string>
+
+    <string name="publish_failed_common">推流失败</string>
+    <string name="camera">摄像头</string>
+    <string name="microphone">麦克风</string>
+    <string name="subscribe_url">拉流地址</string>
+    <string name="start_publish">开始推流</string>
+
+    <string name="confirm_stop_publish">"确定停止推流吗？"</string>
+    <string name="confirm_stop_publish_time_limit">本产品仅用于功能体验，单次时长不超过%1$d分钟</string>
+    <string name="i_know">我知道了</string>
+
+    <string name="please_input_subscribe_url">请输入拉流地址</string>
+    <string name="paste">粘贴</string>
+    <string name="please_input_correct_url">请输入正确的拉流地址</string>
+
+    <string name="parse_failed_common">解析失败，请重试</string>
+
+    <string name="confirm_stop_subscribe">"确定停止拉流吗？"</string>
+    <string name="subscribe_url_timeout">拉流地址已失效</string>
+    <string name="resume_subscribe">恢复拉流</string>
+    <string name="subscribe_error_by_network">网络故障或推流端已停止</string>
+    <string name="resolving_subscribe_url">正在拉流…</string>
+
+    <string name="subscribe_need_permission_record_audio">缺少麦克风权限，无法拉流</string>
+    <string name="publish_need_permission_record_audio">缺少麦克风权限，无法推流</string>
+
+    <string name="record_audio_permission_description_title">"veWTN" 想访问您的麦克风</string>
+    <string name="record_audio_permission_description_content">用于拍摄、直播、视频或语音通话等录音或通讯场景；\n\n请点击确定授予麦克风权限</string>
+
+</resources>
