@@ -1,0 +1,14 @@
+/build
+/gen
+/vewtn/.gradle/
+/vewtn/.idea/
+/vewtn/.cxx/
+/vewtn/gen/
+/vewtn/local.properties
+/vewtn/build
+/.externalNativeBuild
+/.gradle
+/.cxx
+/.idea
+/local.properties
+gradlew
