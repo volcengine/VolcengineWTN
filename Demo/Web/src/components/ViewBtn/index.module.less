@@ -1,0 +1,77 @@
+/**
+ * Copyright 2022 Beijing Volcanoengine Technology Ltd. All Rights Reserved.
+ * SPDX-license-identifier: BSD-3-Clause
+ */
+
+.view-btn {
+  display: flex;
+  align-items: center;
+  margin-right: 24px;
+  //   margin-left: -10px;
+}
+
+.view-link {
+  margin-right: 24px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  border-radius: 50%;
+
+  &:hover {
+    background: rgb(52, 55, 62);
+  }
+
+  &:active {
+    background: rgb(63, 66, 73);
+  }
+
+  :global {
+    img {
+      transform: scale(0.6);
+    }
+  }
+}
+
+.view-line {
+  display: block;
+  border-left: 1px solid #4e5969;
+  height: 24px;
+}
+
+.message {
+  padding: 10px 48px 10px 0;
+
+  :global {
+    .ant-message-notice-content {
+      //   padding: 10px 48px 10px 0px;
+      .ant-message-custom-content {
+        // margin-left: -72px;
+        position: relative;
+      }
+
+      .anticon.anticon-check-circle {
+        position: absolute;
+        left: 13px;
+        top: 3px;
+      }
+
+      .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+        padding: 0 32px;
+
+        .title {
+          font-size: 14px;
+          color: #1d2129;
+        }
+
+        .content {
+          font-size: 12px;
+          color: #4e5969;
+          //   margin-left: 144px;
+        }
+      }
+    }
+  }
+}
