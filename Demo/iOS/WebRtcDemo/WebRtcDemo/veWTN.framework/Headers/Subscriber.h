@@ -140,7 +140,7 @@ VEWTN_EXPORT @interface Subscriber : NSObject
  * @type api
  * @brief 开启订阅音视频流。  <br>
  *        调用该方法后，本地用户会收到 subscriber:onSubscribeStateChanged:reason:{@link #SubscriberDelegate#subscriber:onSubscribeStateChanged:reason:} 的回调。  <br>
- * @param url WHIP 请求的 url。<br>
+ * @param url WHEP 请求的 url。<br>
  *        url 由 WTN 固定域名 `https://wtn.volcvideo.com`，POST/PULL 方法，appID，和你设定的 streamID 拼接得到。 <br>
  *        形如：`https://wtn.volcvideo.com/pull/<appID>/<streamID>`
  * @return  <br>
@@ -156,7 +156,7 @@ VEWTN_EXPORT @interface Subscriber : NSObject
  * @type api
  * @brief Subscribe the remote media streams. <br>
  *        After calling the API, you will receive subscriber:onSubscribeStateChanged:reason:{@link #SubscriberDelegate#subscriber:onSubscribeStateChanged:reason:}.
- * @param url The url for WHIP request. <br>
+ * @param url The url for WHEP request. <br>
  *        Concatenate the fixed url `https://wtn.volcvideo.com`, POST/PULL method, appID, and your specified streamID into the value of url. <br>
  *        The url is like `https://wtn.volcvideo.com/pull/<appID>/<streamID>`.
  * @return   <br>
