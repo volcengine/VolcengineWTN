@@ -1,26 +1,21 @@
 # VolcengineWTN
 
-> 火山引擎WebRTC传输网络（Volcengine WebRTC Transmission Network，简写 veWTN）
+火山引擎 WebRTC 传输网络（VolcEngine WebRTC Transmission Network，简写 WTN）。
+WTN 是基于 WebRTC 的标准传输网络及扩展服务，支持全球范围内大规模、高质量的实时音视频转发。
 
-## veWTN 介绍
+WTN 提供了基于 [WHIP](https://datatracker.ietf.org/doc/html/draft-ietf-wish-whip-02) 的 web-based API；基于这些 API 和 WebRTC 开源库封装了社区版 SDK，并基于此 SDK 提供了场景化 demo。
 
-veWTN 是基于WebRTC的标准传输网络及扩展服务，支持全球范围内大规模、高质量的实时音视频转发，提供了基于 [WHIP](https://datatracker.ietf.org/doc/html/draft-ietf-wish-whip-02) 的 HTTP 信令 API，以及 针对 WebRTC开源库封装后的社区版 SDK，开发者使用 SDK 实现自己的音视频通信业务。
+开发者可以参照 demo，使用此 SDK 实现音视频通信应用。
 
-## SDK 下载
+## 示例 SDK
 
-提供的 SDK 是基于 WTN 信令 API 和 WebRTC 库封装后的开发工具，平台覆盖 Android、iOS
+项目中提供了适用于 Android 和 iOS 的 SDK，参考 [SDK README](SDK/README.md)。
 
-| 平台 | 使用说明 | API 说明 |
-| --- | --- | --- |
-| Android | 文档 | 文档 |
-| iOS | 文档 | 文档 |
+## 示例 Demo
 
-## Demo 体验
+项目中提供了 Android， iOS，和 web 平台的 Demo 项目和 OBS 插件，参考对应文档进行试用：
+- [Android Demo](https://www.volcengine.com/docs/6752/132445)
+- [iOS Demo](https://www.volcengine.com/docs/6752/132446)
+- [Web Demo](https://www.volcengine.com/docs/6752/132447)
+- [OBS 插件](https://www.volcengine.com/docs/6752/132448)
 
-提供的 Demo 是基于 WTN 产品基本功能的场景化示例，同时开源了客户端代码
-
-| 平台 | 使用说明 | API 说明 |
-| --- | --- | --- |
-| Android | 链接 | 跳转链接 |
-| iOS | 链接 | 扫描二维码 |
-| Web | 链接 | 扫描二维码 |
