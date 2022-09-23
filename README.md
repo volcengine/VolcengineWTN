@@ -1,9 +1,12 @@
 # VolcengineWTN
 
-火山引擎 WebRTC 传输网络（VolcEngine WebRTC Transmission Network，简写 WTN）。
-WTN 是基于 WebRTC 的标准传输网络及扩展服务，支持全球范围内大规模、高质量的实时音视频转发。
+## WTN 介绍
 
-WTN 提供了基于 [WHIP](https://datatracker.ietf.org/doc/html/draft-ietf-wish-whip-02) 的 web-based API；基于这些 API 和 WebRTC 开源库封装了社区版 SDK，并基于此 SDK 提供了场景化 demo。
+> 火山引擎 WebRTC 传输网络（VolcEngine WebRTC Transmission Network，简写 WTN）
+
+WTN 是面向 WebRTC 开发者推出的服务端传输网络服务，它构建于可支撑亿级 DAU 实时通信的全球实时传输网络之上，可支持标准 WebRTC 接入，为广大开发者和企业提供全球范围超低延迟、稳定可靠的实时音视频通信能力。
+
+WTN 提供了基于 [WHIP](https://datatracker.ietf.org/doc/html/draft-ietf-wish-whip-02)/[WHEP](https://www.ietf.org/id/draft-murillo-whep-00.html) 的 HTTP API 和 WebRTC 开源库封装了社区版 SDK，并基于此 SDK 提供了场景化 demo。
 
 开发者可以参照 demo，使用此 SDK 实现音视频通信应用。
 
