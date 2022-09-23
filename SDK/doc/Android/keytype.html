@@ -1,0 +1,234 @@
+
+    <html lang="zh-cn">
+    <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <link href="default.css" rel="stylesheet">
+    <link href="github.css" rel="stylesheet">
+    </head>
+    <body>
+    <html><body><h1 id="publishstate">PublishState</h1>
+<pre class="codehilite"><code class="language-java">public enum com.vewtn.PublisherEventHandler.PublishState
+</code></pre>
+
+<p>音视频流发布状态</p>
+<h2 id="_1">枚举值</h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>StartPublishSuccess</strong></td>
+<td>开始发布成功</td>
+</tr>
+<tr>
+<td><strong>StartPublishFailed</strong></td>
+<td>开始发布失败</td>
+</tr>
+<tr>
+<td><strong>StopPublishSuccess</strong></td>
+<td>停止发布成功</td>
+</tr>
+<tr>
+<td><strong>StopPublishFailed</strong></td>
+<td>停止发布失败</td>
+</tr>
+<tr>
+<td><strong>}</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="reason">Reason</h1>
+<pre class="codehilite"><code class="language-java">public enum com.vewtn.PublisherEventHandler.Reason
+</code></pre>
+
+<p>发布成功或失败的原因</p>
+<h2 id="_2">枚举值</h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Success</strong></td>
+<td>成功</td>
+</tr>
+<tr>
+<td><strong>ParameterError</strong></td>
+<td>失败。参数错误。</td>
+</tr>
+<tr>
+<td><strong>TokenError</strong></td>
+<td>失败。Token 错误。包括 Token 错误、Token 过期、Token 鉴权失败等。</td>
+</tr>
+<tr>
+<td><strong>ResourcesNotFound</strong></td>
+<td>失败。未找到资源。</td>
+</tr>
+<tr>
+<td><strong>ServerInternalError</strong></td>
+<td>失败。服务器内部错误。请重试。</td>
+</tr>
+<tr>
+<td><strong>SDKInternalError</strong></td>
+<td>失败。SDK 内部错误。请重试。</td>
+</tr>
+<tr>
+<td><strong>NetworkError</strong></td>
+<td>失败。网络错误。</td>
+</tr>
+<tr>
+<td><strong>UnknowError</strong></td>
+<td>失败。未知错误。请重试。</td>
+</tr>
+<tr>
+<td><strong>DeviceNoPermission</strong></td>
+<td>失败。摄像头或者麦克风无权限。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="subscribestate">SubscribeState</h1>
+<pre class="codehilite"><code class="language-java">public enum com.vewtn.SubscriberEventHandler.SubscribeState
+</code></pre>
+
+<p>音视频流订阅状态</p>
+<h2 id="_3">枚举值</h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>StartSubscribeSuccess</strong></td>
+<td>开始订阅成功</td>
+</tr>
+<tr>
+<td><strong>StartSubscribeFailed</strong></td>
+<td>开始订阅失败</td>
+</tr>
+<tr>
+<td><strong>StopSubscribeSuccess</strong></td>
+<td>停止订阅成功</td>
+</tr>
+<tr>
+<td><strong>StopSubscribeFailed</strong></td>
+<td>停止订阅失败</td>
+</tr>
+<tr>
+<td><strong>}</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1 id="reason-1">Reason</h1>
+<pre class="codehilite"><code class="language-java">public enum com.vewtn.SubscriberEventHandler.Reason
+</code></pre>
+
+<p>订阅成功或失败的原因</p>
+<h2 id="_4">枚举值</h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Success</strong></td>
+<td>成功</td>
+</tr>
+<tr>
+<td><strong>ParameterError</strong></td>
+<td>失败。参数错误。</td>
+</tr>
+<tr>
+<td><strong>TokenError</strong></td>
+<td>失败。Token 错误。包括 Token 错误、Token 过期、Token 鉴权失败等。</td>
+</tr>
+<tr>
+<td><strong>ResourcesNotFound</strong></td>
+<td>失败。未找到资源。</td>
+</tr>
+<tr>
+<td><strong>ServerInternalError</strong></td>
+<td>失败。服务器内部错误。请重试。</td>
+</tr>
+<tr>
+<td><strong>SDKInternalError</strong></td>
+<td>失败。SDK 内部错误。请重试。</td>
+</tr>
+<tr>
+<td><strong>NetworkError</strong></td>
+<td>失败。网络错误。</td>
+</tr>
+<tr>
+<td><strong>UnknowError</strong></td>
+<td>失败。未知错误。请重试。</td>
+</tr>
+<tr>
+<td><strong>DeviceNoPermission</strong></td>
+<td>失败。摄像头或者麦克风无权限。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="videoconfig">VideoConfig</h1>
+<pre class="codehilite"><code class="language-java">public class com.vewtn.VideoConfig
+</code></pre>
+
+<p>视频配置</p>
+<h2 id="_5">成员变量</h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>int</strong></td>
+<td><a href="#VideoConfig-width">width</a></td>
+</tr>
+<tr>
+<td><strong>int</strong></td>
+<td><a href="#VideoConfig-height">height</a></td>
+</tr>
+<tr>
+<td><strong>int</strong></td>
+<td><a href="#VideoConfig-maxfps">maxFPS</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">变量说明</h2>
+<p><span id="VideoConfig-width"></span></p>
+<h3 id="width">width</h3>
+<pre class="codehilite"><code class="language-java">public int com.vewtn.VideoConfig.width = 960;
+</code></pre>
+
+<p>宽度（px）。默认值是 960。</p>
+<p><span id="VideoConfig-height"></span></p>
+<h3 id="height">height</h3>
+<pre class="codehilite"><code class="language-java">public int com.vewtn.VideoConfig.height = 640;
+</code></pre>
+
+<p>高度（px）。默认值是 960。</p>
+<p><span id="VideoConfig-maxfps"></span></p>
+<h3 id="maxfps">maxFPS</h3>
+<pre class="codehilite"><code class="language-java">public int com.vewtn.VideoConfig.maxFPS = 15;
+</code></pre>
+
+<p>最大帧率（fps）。默认值是 15。</p></body></html>
+    </body>
+    </html>
+    

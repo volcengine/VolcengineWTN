@@ -1,0 +1,141 @@
+
+    <html lang="zh-cn">
+    <head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <link href="default.css" rel="stylesheet">
+    <link href="github.css" rel="stylesheet">
+    </head>
+    <body>
+    <html><body><h1 id="_1">方法</h1>
+<h2 id="_2">发布</h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="api.html#Publisher-create">create:</a></td>
+<td>创建 Publisher 实例。<br><br>如果当前线程中未创建实例，那么你必须先调用此 API，以使用 WTN 提供的各种音视频能力。  <br></td>
+</tr>
+<tr>
+<td><a href="api.html#Publisher-destroy">destroy</a></td>
+<td>销毁由 <a href="api.html#Publisher-create">create:</a> 所创建的 Publisher 实例，并释放所有相关资源</td>
+</tr>
+<tr>
+<td><a href="api.html#Publisher-setvideoconfig">setVideoConfig:</a></td>
+<td>设置视频采集参数</td>
+</tr>
+<tr>
+<td><a href="api.html#Publisher-setlocalview">setLocalView:</a></td>
+<td>设置本地视频渲染时使用的视图。</td>
+</tr>
+<tr>
+<td><a href="api.html#Publisher-startvideocapture">startVideoCapture</a></td>
+<td>开启摄像头采集。默认为关闭状态。  <br></td>
+</tr>
+<tr>
+<td><a href="api.html#Publisher-stopvideocapture">stopVideoCapture</a></td>
+<td>关闭摄像头采集。</td>
+</tr>
+<tr>
+<td><a href="api.html#Publisher-switchcamera">switchCamera</a></td>
+<td>切换摄像头采集时使用的前置/后置摄像头。</td>
+</tr>
+<tr>
+<td><a href="api.html#Publisher-startaudiocapture">startAudioCapture</a></td>
+<td>开启麦克风采集。默认为关闭状态。  <br></td>
+</tr>
+<tr>
+<td><a href="api.html#Publisher-stopaudiocapture">stopAudioCapture</a></td>
+<td>关闭麦克风采集。</td>
+</tr>
+<tr>
+<td><a href="api.html#Publisher-startpublish">startPublish:</a></td>
+<td>发布音视频流</td>
+</tr>
+<tr>
+<td><a href="api.html#Publisher-stoppublish">stopPublish</a></td>
+<td>停止发布音视频流</td>
+</tr>
+<tr>
+<td><a href="api.html#Publisher-ispublishing">isPublishing</a></td>
+<td>查询音视频流发布状态</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">订阅</h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="api.html#Subscriber-create">create:</a></td>
+<td>创建 Subscriber 实例。</td>
+</tr>
+<tr>
+<td><a href="api.html#Subscriber-destroy">destroy</a></td>
+<td>销毁由 <a href="api.html#Subscriber-create">create:</a> 所创建的 Subscriber 实例，并释放所有相关资源</td>
+</tr>
+<tr>
+<td><a href="api.html#Subscriber-setremoteview">setRemoteView:</a></td>
+<td>设置渲染远端视频流时使用的视图</td>
+</tr>
+<tr>
+<td><a href="api.html#Subscriber-setenablespeaker">setEnableSpeaker:</a></td>
+<td>切换播放音频流时使用的听筒/扬声器 <br></td>
+</tr>
+<tr>
+<td><a href="api.html#Subscriber-startsubscribe">startSubscribe:</a></td>
+<td>开启订阅音视频流。  <br><br>调用该方法后，本地用户会收到 <a href="callback.html#SubscriberDelegate-subscriber-onsubscribestatechanged-reason">subscriber:onSubscribeStateChanged:reason:</a> 的回调。  <br></td>
+</tr>
+<tr>
+<td><a href="api.html#Subscriber-stopsubscribe">stopSubscribe</a></td>
+<td>停止订阅音视频流</td>
+</tr>
+<tr>
+<td><a href="api.html#Subscriber-issubscribed">isSubscribed</a></td>
+<td>查询音视频流订阅状态</td>
+</tr>
+</tbody>
+</table>
+<h1 id="_4">回调</h1>
+<h2 id="_5">发布</h2>
+<table>
+<thead>
+<tr>
+<th>回调</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="callback.html#PublisherDelegate-publisher-onpublishstatechanged-reason">publisher:onPublishStateChanged:reason:</a></td>
+<td>音视频流的发布状态发生改变时，收到此回调。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">订阅</h2>
+<table>
+<thead>
+<tr>
+<th>回调</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="callback.html#SubscriberDelegate-subscriber-onsubscribestatechanged-reason">subscriber:onSubscribeStateChanged:reason:</a></td>
+<td>音视频流的订阅状态发生改变时，收到此回调。</td>
+</tr>
+</tbody>
+</table></body></html>
+    </body>
+    </html>
+    

@@ -1,0 +1,52 @@
+//
+//  WebRtcDemo.pch
+//  WebRtcDemo
+//
+//  Created by ByteDance on 2022/6/12.
+//
+
+#ifndef WebRtcDemo_pch
+#define WebRtcDemo_pch
+
+
+
+/*
+ 推流地址
+*/
+#define PushStreamUrl  @"推流地址"
+
+/*
+ 拉流地址
+*/
+#define PullStreamUrl  @"推流地址"
+
+
+
+
+#import "Masonry.h"
+#import "DeviceInforTool.h"
+#import "ToastComponents.h"
+#import "BaseButton.h"
+#import "UIColor+String.h"
+
+#define SCREEN_WIDTH  ([UIScreen mainScreen].bounds.size.width)
+
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+
+#define WeakSelf __weak typeof(self) wself = self;
+
+#define StrongSelf __strong __typeof(self) sself = wself;
+
+#define  IsEmptyStr(string) (string == nil || string == NULL ||[string isKindOfClass:[NSNull class]]|| [string isEqualToString:@""] ||[[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]==0 ? YES : NO)
+
+#define  NOEmptyStr(string) (string == nil || string == NULL ||[string isKindOfClass:[NSNull class]] || [string isEqualToString: @""]  ||[[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length]==0 ? NO : YES)
+
+#ifndef dispatch_queue_async_safe
+#define dispatch_queue_async_safe(queue, block)\
+    if (dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL) == dispatch_queue_get_label(queue)) {\
+        block();\
+    } else {\
+        dispatch_async(queue, block);\
+    }
+#endif
+#endif /* WebRtcDemo_pch */

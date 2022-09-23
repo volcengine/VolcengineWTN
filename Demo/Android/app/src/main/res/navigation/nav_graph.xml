@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/mainFragment">
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.volcengine.vewtn.demo.MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/open_publish"
+            app:destination="@id/publishFragment" />
+
+        <action
+            android:id="@+id/open_subscribe"
+            app:destination="@id/subscribeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/publishFragment"
+        android:name="com.volcengine.vewtn.demo.publish.PublishFragment"
+        tools:layout="@layout/fragment_publish" />
+
+    <fragment
+        android:id="@+id/subscribeFragment"
+        android:name="com.volcengine.vewtn.demo.subscribe.SubscribeFragment"
+        tools:layout="@layout/fragment_subscribe" />
+</navigation>

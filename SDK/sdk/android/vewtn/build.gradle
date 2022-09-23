@@ -1,0 +1,88 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        minSdkVersion 18
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters = ["armeabi-v7a", "arm64-v8a"]
+        }
+        externalNativeBuild {
+            cmake {
+                cppFlags += "-std=c++17"
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            jniDebuggable true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+            java.exclude('org/webrtc/')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "../../../../CMakeLists.txt"
+            version "3.10.0+"
+        }
+    }
+}
+
+android {
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    api fileTree(include: ['libwebrtc.jar'], dir: '../../../third_party/webrtc/android/jar/')
+    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'androidx.core:core:1.6.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+task generateJNI {
+    doLast {
+        new Prebuild().preBuild()
+    }
+}
+
+task cleanGeneratedJNI {
+    doLast {
+        println("cleanGeneratedJNI ...")
+        new Prebuild().clean()
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith("compile")) {
+        task.dependsOn generateJNI
+    } else if (task.name.equals("externalNativeBuildCleanRelease") || task.name.equals("externalNativeBuildCleanDebug")) {
+        task.dependsOn cleanGeneratedJNI
+    }
+}

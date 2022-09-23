@@ -1,0 +1,234 @@
+/**
+ * Copyright 2022 Beijing Volcanoengine Technology Ltd. All Rights Reserved.
+ * SPDX-license-identifier: BSD-3-Clause
+ */
+
+.container {
+  background-color: #272e3b;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.stream-player {
+  width: 100%;
+  position: absolute;
+  height: calc(100% - 50px);
+  left: 0;
+  top: 50px;
+  transform: rotateY(180deg);
+}
+
+.header {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background-color: #1f2127;
+  font-family: 'PingFang SC';
+  font-style: normal;
+  font-weight: 400;
+
+  :global {
+    img {
+      width: 221px;
+    }
+
+    .version {
+      font-size: 12px;
+      color: #86909c;
+      margin-right: 40px;
+    }
+
+    .ant-select {
+      background-color: #1f2127 !important;
+      width: 90px;
+      margin-right: 40px;
+
+      .ant-select-selector {
+        background-color: #1f2127 !important;
+        border: none !important;
+        color: #fff;
+      }
+
+      .ant-select-arrow {
+        color: #fff;
+
+        .anticon-down {
+          transform: scale(0.8);
+        }
+      }
+    }
+
+    .ant-select-focused {
+      .ant-select-selector {
+        box-shadow: none !important;
+      }
+    }
+
+    .doc_link {
+      font-size: 14px;
+      line-height: 22px;
+      margin-right: 40px;
+      color: #fff;
+
+      a,
+      a:active,
+      a:hover {
+        color: #fff;
+      }
+    }
+
+    .avatar-group {
+      display: inline-block;
+      position: relative;
+      user-select: none;
+
+      .avatar {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        background: #505867;
+        font-weight: 600;
+        font-size: 14px;
+        color: #fff;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+
+      .username {
+        color: #fff;
+      }
+
+      .avatar-menu {
+        user-select: none;
+        position: absolute;
+        width: 100px;
+        height: 40px;
+        background: #111318;
+        border-radius: 2px;
+        color: #cacdd3;
+        font-size: 12px;
+        text-align: center;
+        line-height: 40px;
+        top: 45px;
+        left: -16px;
+
+        .logout-btn {
+          display: inline-block;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+.stream-btns {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border-radius: 60px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 20px 40px;
+
+  :global {
+    .ant-btn.ant-btn-primary {
+      border-radius: 20px;
+      height: 40px;
+      background: #165dff;
+      outline: none;
+    }
+  }
+}
+
+.stream-btns-published {
+  position: absolute;
+  bottom: 116px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1d2129;
+  border-radius: 24px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.message {
+  :global {
+    .ant-message-notice-content {
+      .title {
+        font-size: 14px;
+        color: #1d2129;
+      }
+
+      .content {
+        font-size: 12px;
+        color: #4e5969;
+        margin-left: 77px;
+      }
+    }
+  }
+}
+
+.stopModal {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  :global {
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .anticon-exclamation {
+      color: #fff;
+      background: #ff7d00;
+      border-radius: 50%;
+      font-size: 10px;
+      padding: 4px;
+    }
+
+    .stopText {
+      margin-left: 10px;
+      color: #1d2129;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 22px;
+    }
+
+    .ant-btn {
+      width: 240px;
+      height: 36px;
+      line-height: 36px;
+      padding: 0;
+      border: none;
+      border-radius: 2px;
+    }
+
+    .ant-btn-primary {
+      margin-bottom: 20px;
+      background: #f53f3f;
+    }
+
+    .ant-btn-default {
+      background: #f2f3f5;
+      color: #1d2129;
+
+      &:active {
+        color: #1d2129;
+        background: #f2f3f5;
+      }
+    }
+  }
+}

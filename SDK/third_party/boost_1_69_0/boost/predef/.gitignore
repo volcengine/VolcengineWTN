@@ -1,0 +1,4 @@
+bin
+boost-build.jam
+project-config.jam
+*.pyc
