@@ -113,7 +113,7 @@ public int com.vewtn.VideoConfig.width = 960;
 ```java
 public int com.vewtn.VideoConfig.height = 640;
 ```
-高度（px）。默认值是 960。
+高度（px）。默认值是 640。
 
 
 <span id="VideoConfig-maxfps"></span>
