@@ -9,15 +9,14 @@ import settingPubImg from '/assets/images/settingPub2x.png';
 import settingUnPubImg from '/assets/images/settingUnPub2x.png';
 
 import { Modal, Select } from 'antd';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import styles from './index.module.less';
 
 import { DEFAULTCONFIG, Frame, RESOLUTIOIN_LIST } from '@/config';
-import { updateVideo } from '@/store/reducer/constraints';
 
 interface Props {
   published: boolean;
+  onSettingChange: (videoConstraints: MediaTrackConstraints) => void;
 }
 
 /**
@@ -46,10 +45,9 @@ const getIcon = (
 };
 
 function SettingButton(props: Props) {
-  const { published } = props;
+  const { published, onSettingChange } = props;
   const { t } = useTranslation();
   const imgIcon = getIcon(props);
-  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
 
   const [resolution, setResolution] = useState(DEFAULTCONFIG.resolutionsText);
@@ -59,7 +57,8 @@ function SettingButton(props: Props) {
     setVisible(false);
 
     const resolutions = RESOLUTIOIN_LIST.find((r) => r.text === resolution);
-    dispatch(updateVideo({ ...resolutions?.val, frameRate }));
+
+    onSettingChange({ ...resolutions?.val, frameRate });
   };
 
   return (

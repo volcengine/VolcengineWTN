@@ -7,16 +7,208 @@ import { Devices } from '@/pages/Push/interface';
 import WhipClient from './WhipClient';
 
 class RtcClient {
-  whip: WhipClient | null;
+  whip?: WhipClient;
 
-  peer: RTCPeerConnection | undefined;
+  peer?: RTCPeerConnection;
 
-  published: boolean;
+  private _audioStreamConstraints: MediaTrackConstraints = {};
 
-  constructor() {
-    this.whip = null;
-    this.published = false;
-  }
+  private _localAudioDeviceId?: string;
+
+  private _localAudioTrack?: MediaStreamTrack;
+
+  private _videoStreamConstraints: MediaTrackConstraints = {};
+
+  private _localVideoDeviceId?: string;
+
+  private _localVideoTrack?: MediaStreamTrack;
+
+  private _published: boolean = false;
+
+  private _videoPlayer?: HTMLVideoElement;
+
+  private _audioMute: boolean = false;
+
+  private _videoMute: boolean = false;
+
+  /**
+   * 销毁状态
+   */
+  destory = () => {
+    this.whip = undefined;
+    this.peer = undefined;
+    this._audioStreamConstraints = {};
+    this._localAudioDeviceId = undefined;
+    this._localAudioTrack = undefined;
+    this._videoStreamConstraints = {};
+    this._localVideoDeviceId = undefined;
+    this._localVideoTrack = undefined;
+    this._published = false;
+    this._videoPlayer = undefined;
+    this._audioMute = false;
+    this._videoMute = false;
+  };
+
+  /**
+   * 开始捕获音频
+   * @param deviceId
+   */
+  startAudioCapture = async (deviceId?: string) => {
+    deviceId = deviceId || this._localAudioDeviceId;
+    if (deviceId) {
+      this._audioStreamConstraints.deviceId = { exact: deviceId };
+    }
+
+    let mediaStream;
+
+    try {
+      mediaStream = await navigator.mediaDevices.getUserMedia({
+        audio: this._audioStreamConstraints,
+      });
+      const track = mediaStream.getAudioTracks()[0];
+      track.enabled = !this._audioMute;
+      this._localAudioTrack = track;
+
+      if (this._published) {
+        this._updatePublish();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  /**
+   * 开始捕获视频
+   * @param deviceId
+   */
+  startVideoCapture = async (deviceId?: string) => {
+    deviceId = deviceId || this._localVideoDeviceId;
+    if (deviceId) {
+      this._videoStreamConstraints.deviceId = { exact: deviceId };
+    }
+
+    let mediaStream;
+
+    try {
+      mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: this._videoStreamConstraints,
+      });
+      const track = mediaStream.getVideoTracks()[0];
+      track.enabled = !this._videoMute;
+      this._localVideoTrack = track;
+
+      this._play();
+
+      if (this._published) {
+        this._updatePublish();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  /**
+   * 设置音频采集设备
+   * @param device
+   */
+  setAudioCaptureDevice = (device: string) => {
+    this._localAudioTrack?.stop();
+    this._localAudioDeviceId = device;
+    this.startAudioCapture(device);
+  };
+
+  /**
+   * 设置视频采集设备
+   * @param device
+   */
+  setVideoCaptureDevice = (device: string) => {
+    this._localVideoTrack?.stop();
+    this._localVideoDeviceId = device;
+    this.startAudioCapture(device);
+  };
+
+  /**
+   * 设置视频播放器
+   * @param renderDom
+   */
+  setLocalVideoPlayer = (renderDom: string | HTMLVideoElement) => {
+    const _videoDom: HTMLVideoElement | null =
+      typeof renderDom === 'string'
+        ? (document.getElementById(renderDom) as HTMLVideoElement)
+        : renderDom;
+    if (!_videoDom) {
+      throw new Error(`can't find video player dom`);
+    }
+
+    this._videoPlayer = _videoDom;
+
+    this._play();
+  };
+
+  /**
+   * 设置视频采集属性
+   * @param config
+   */
+  setVideoCaptureConfig = async (config: MediaTrackConstraints) => {
+    const deviceId = this._videoStreamConstraints.deviceId;
+
+    this._videoStreamConstraints = config;
+    if (deviceId) {
+      this._videoStreamConstraints.deviceId = deviceId;
+    }
+
+    if (this._localVideoTrack) {
+      await this._localVideoTrack.applyConstraints(this._videoStreamConstraints);
+    }
+
+    if (this._published) {
+      this._updatePublish();
+    }
+  };
+
+  /**
+   * 禁用音频
+   * @param mute
+   */
+  muteAudio = (mute: boolean) => {
+    this._audioMute = mute;
+    if (this._localAudioTrack) {
+      this._localAudioTrack.enabled = !mute;
+    } else {
+      this.startAudioCapture();
+    }
+  };
+
+  /**
+   * 禁用视频
+   * @param mute
+   */
+  muteVideo = (mute: boolean) => {
+    this._videoMute = mute;
+    if (this._localVideoTrack) {
+      this._localVideoTrack.enabled = !mute;
+    } else {
+      this.startVideoCapture();
+    }
+  };
+
+  private _updatePublish = () => {
+    if (!this.whip) {
+      return;
+    }
+    this.whip.updateTrack(this._localAudioTrack, this._localVideoTrack);
+  };
+
+  private _play = () => {
+    if (this._videoPlayer && this._localVideoTrack) {
+      const ms = new MediaStream();
+      ms.addTrack(this._localVideoTrack);
+      this._videoPlayer.onloadeddata = () => {
+        this._videoPlayer?.play();
+      };
+      this._videoPlayer.srcObject = ms;
+    }
+  };
 
   /**
    * 获取摄像头/麦克风
@@ -63,79 +255,30 @@ class RtcClient {
   };
 
   /**
-   * 创建视频流
-   * @param options MediaStreamConstraints
-   * @returns
-   */
-  getStream = (options: MediaStreamConstraints): Promise<MediaStream> => {
-    return new Promise((resolve, reject) => {
-      navigator.mediaDevices
-        .getUserMedia(options)
-        .then((stream) => {
-          resolve(stream);
-        })
-        .catch((err) => {
-          reject(err);
-        });
-    });
-  };
-
-  /**
    * 发布流
    * @param publishUrl 发布地址
    * @param tracks 需要发布的流
    */
-  publish = async (publishUrl: string, tracks: MediaStreamTrack[]) => {
+  publish = async (publishUrl: string) => {
     if (!this.peer) {
       this.peer = new RTCPeerConnection({});
     }
-    tracks.forEach((track) => {
-      this.peer?.addTrack(track);
-    });
-    this.whip = new WhipClient();
 
-    try {
-      await this.whip.start(this.peer, publishUrl);
-      this.published = true;
-      return {
-        status: 200,
-        statusText: 'success',
-      };
-    } catch (err) {
-      throw new Error(err as any);
-    }
+    this.whip = new WhipClient(this.peer, publishUrl);
+    this.whip.start(this._localAudioTrack, this._localVideoTrack);
+    this._published = true;
   };
 
   /**
    * 停止发布流
    */
-  stopPublish = async () => {
+  unPublish = async () => {
     try {
       await this.whip?.stop();
-      this.published = false;
+      this._published = false;
       this.peer = undefined;
     } catch (err) {
       throw new Error('stop publish error');
-    }
-  };
-
-  /**
-   * 更新流，发生在设备切换/设置分辨率等
-   * @param publishUrl
-   * @param tracks
-   */
-  updateStream = async (tracks: MediaStreamTrack[]) => {
-    if (this.published) {
-      // 移除原有的流
-
-      const senders = this.peer?.getSenders();
-      tracks.forEach((track) => {
-        senders?.forEach((sender) => {
-          if (track.kind === sender.track?.kind) {
-            sender.replaceTrack(track);
-          }
-        });
-      });
     }
   };
 
@@ -158,8 +301,8 @@ class RtcClient {
         }
       };
 
-      this.whip = new WhipClient();
-      this.whip.start(this.peer, url).catch((err) => {
+      this.whip = new WhipClient(this.peer, url);
+      this.whip.startSubscribe().catch((err) => {
         reject(err);
       });
     });
@@ -168,11 +311,21 @@ class RtcClient {
   /**
    * 停止订阅
    */
-  stopSubscribe = async () => {
+  stopSubscribe = async (): Promise<
+    | 'success'
+    | {
+        message: string;
+      }
+  > => {
     try {
       await this.whip?.stop();
       this.peer = undefined;
-    } catch (err) {}
+      return 'success';
+    } catch (err: any) {
+      return err as {
+        message: string;
+      };
+    }
   };
 }
 
