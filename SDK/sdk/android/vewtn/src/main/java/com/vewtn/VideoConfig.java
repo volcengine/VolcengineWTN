@@ -22,10 +22,10 @@ public class VideoConfig {
     */
     public int width = 960;
    /** {zh}
-    * @brief 高度（px）。默认值是 960。
+    * @brief 高度（px）。默认值是 640。
     */
    /** {en}
-    * @brief Height in px. 960 by default.
+    * @brief Height in px. 640 by default.
     */
     public int height = 640;
    /** {zh}
