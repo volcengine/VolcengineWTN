@@ -14,6 +14,7 @@ import rtcClient from '@/lib/RtcClient';
 
 function View() {
   const player = useRef<HTMLVideoElement>(null);
+  const [stopping, setStopping] = useState(false);
 
   const [pulling, setPulling] = useState(true);
   const { t } = useTranslation();
@@ -52,14 +53,16 @@ function View() {
     }
   }, [pullUrl, player]);
 
-  const stopSubscribe = () => {
-    rtcClient.stopSubscribe();
+  const stopSubscribe = async () => {
+    return await rtcClient.stopSubscribe();
   };
 
-  const handlePull = () => {
+  const handlePull = async () => {
     setPulling(!pulling);
     if (pulling) {
-      stopSubscribe();
+      setStopping(true);
+      const res = await stopSubscribe();
+      setStopping(false);
     } else {
       startSubscribe();
     }
@@ -77,7 +80,13 @@ function View() {
       />
       <Header />
       <div className={styles.pull}>
-        <Button type="primary" danger={pulling} onClick={handlePull}>
+        <Button
+          type="primary"
+          danger={pulling}
+          onClick={handlePull}
+          loading={stopping}
+          disabled={stopping}
+        >
           {pulling ? (
             <>
               <PoweroffOutlined />

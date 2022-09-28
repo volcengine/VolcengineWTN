@@ -3,9 +3,8 @@
  * SPDX-license-identifier: BSD-3-Clause
  */
 
-import { Button, Modal } from 'antd';
+import { Button, message, Modal } from 'antd';
 import stopImg from '/assets/images/stop2x.png';
-import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { ExclamationOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
@@ -15,23 +14,19 @@ import SettingButton from '@/components/SettingButton';
 
 import rtcClient from '@/lib/RtcClient';
 import { Devices } from './interface';
-import ViewBtn from '@/components/ViewBtn';
-import { updateAudio, updateVideo } from '@/store/reducer/constraints';
+import ViewCopyBtn from '@/components/ViewCopyBtn';
 
 interface Props {
   onPublish: (status: boolean) => void;
   published: boolean;
-  onMute: (type: 'audio' | 'video', muted: boolean) => void;
   shareUrl: string;
 }
 
 function StreamButtons(props: Props) {
-  const dispatch = useDispatch();
+  const { onPublish, published, shareUrl } = props;
+
   const { t } = useTranslation();
   const [stopModalVisible, setStopModalVisible] = useState(false);
-
-  const { onPublish, published, onMute, shareUrl } = props;
-
   const [deviceSelectPop, setDeviceSelectPop] = useState('');
 
   const [audioMute, setAudioMute] = useState(false);
@@ -48,50 +43,45 @@ function StreamButtons(props: Props) {
 
   const handleMicChange = (device: string | null | true) => {
     if (device === null) {
-      onMute('audio', true);
       setAudioMute(true);
+      rtcClient.muteAudio(true);
     } else if (device === true) {
-      onMute('audio', false);
       setAudioMute(false);
+      rtcClient.muteAudio(false);
     } else {
-      dispatch(
-        updateAudio({
-          deviceId: {
-            exact: device,
-          },
-        })
-      );
+      rtcClient.setAudioCaptureDevice(device);
     }
   };
 
   const handleCameraChange = (device: string | null | true) => {
     if (device === null) {
-      onMute('video', true);
       setVideoMute(true);
+      rtcClient.muteVideo(true);
     } else if (device === true) {
-      onMute('video', false);
       setVideoMute(false);
+      rtcClient.muteVideo(false);
     } else {
-      dispatch(
-        updateVideo(
-          device
-            ? {
-                deviceId: {
-                  exact: device,
-                },
-              }
-            : false
-        )
-      );
+      rtcClient.setVideoCaptureDevice(device);
     }
   };
 
   const handlePublish = () => {
     if (!published) {
+      message.success({
+        className: styles.message,
+        content: <span className="title">{t('pushSuccMsg')}</span>,
+      });
       onPublish(!published);
     } else {
       setStopModalVisible(true);
     }
+  };
+
+  /**
+   * 视频分辨率/帧率设置
+   */
+  const handleSettingChange = (videoConstraints: MediaTrackConstraints) => {
+    rtcClient.setVideoCaptureConfig(videoConstraints);
   };
 
   return (
@@ -116,8 +106,8 @@ function StreamButtons(props: Props) {
         opened={!videoMute}
       />
 
-      <SettingButton published={published} />
-      {published && <ViewBtn shareUrl={shareUrl} />}
+      <SettingButton published={published} onSettingChange={handleSettingChange} />
+      {published && <ViewCopyBtn shareUrl={shareUrl} />}
 
       {published ? (
         <div onClick={handlePublish}>

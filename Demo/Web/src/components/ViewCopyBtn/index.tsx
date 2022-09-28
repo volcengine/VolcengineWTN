@@ -14,13 +14,14 @@ interface ViewBtnProps {
   shareUrl: string;
 }
 
-function ViewBtn(props: ViewBtnProps) {
+function ViewCopyBtn(props: ViewBtnProps) {
   const { shareUrl } = props;
+  console.log(props);
   const { t } = useTranslation();
   return (
     <div className={styles['view-btn']}>
       <Copy
-        onCopy={(text, res) => {
+        onCopy={() => {
           message.success({
             className: styles.message,
             content: (
@@ -43,4 +44,4 @@ function ViewBtn(props: ViewBtnProps) {
   );
 }
 
-export default ViewBtn;
+export default ViewCopyBtn;
