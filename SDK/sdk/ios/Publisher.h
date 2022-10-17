@@ -72,9 +72,9 @@ VEWTN_EXPORT @interface Publisher : NSObject
  * @type api
  * @brief 销毁由 create:{@link #Publisher#create:} 所创建的 Publisher 实例，并释放所有相关资源
  * @notes  <br>
- *      + 请确保和需要销毁的 Publisher{@link #Publisher} 实例相关的业务场景全部结束后，才调用此方法。  <br>
- *      + 该方法在调用之后，会销毁所有和此 Publisher{@link #Publisher} 实例相关的内存，并且停止与媒体服务器的任何交互。  <br>
- *      + 调用本方法会启动 SDK 退出逻辑。线程会保留，直到退出逻辑完成。因此，不要在回调线程中直接调用此 API，也不要在回调中等待主线程的执行，并同时在主线程调用本方法。不然会造成死锁。
+ *      + 请确保需要销毁的 Publisher{@link #Publisher} 实例相关的业务场景全部结束后，才调用此方法。  <br>
+ *      + 该方法在调用之后，会销毁所有和此 Publisher{@link #Publisher} 实例相关的内存，并且停止与服务端的任何交互。  <br>
+ *      + 调用本方法会启动 SDK 退出逻辑。线程会保留，直到退出逻辑完成。因此，不要在回调线程中直接调用此 API；也不要在回调中等待主线程的执行。不然会造成死锁。
  */
 /** {en}
  * @type api
@@ -178,7 +178,7 @@ VEWTN_EXPORT @interface Publisher : NSObject
 - (int)stopVideoCapture;
 /** {zh}
  * @type api
- * @brief 切换摄像头采集时使用的前置/后置摄像头。
+ * @brief 使用内部采集时，切换使用的摄像头：前置或后置摄像头。
  * @return  <br>
  *        + 0：方法调用成功  <br>
  *        + < 0：方法调用失败  <br>

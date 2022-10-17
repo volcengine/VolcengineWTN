@@ -136,9 +136,9 @@
 </ul>
 <p><strong>注意</strong></p>
 <ul>
-<li>请确保和需要销毁的 <a href="#publisher">Publisher</a> 实例相关的业务场景全部结束后，才调用此方法。  </li>
-<li>该方法在调用之后，会销毁所有和此 <a href="#publisher">Publisher</a> 实例相关的内存，并且停止与媒体服务器的任何交互。  </li>
-<li>调用本方法会启动 SDK 退出逻辑。线程会保留，直到退出逻辑完成。因此，不要在回调线程中直接调用此 API，也不要在回调中等待主线程的执行，并同时在主线程调用本方法。不然会造成死锁。</li>
+<li>请确保需要销毁的 <a href="#publisher">Publisher</a> 实例相关的业务场景全部结束后，才调用此方法。  </li>
+<li>该方法在调用之后，会销毁所有和此 <a href="#publisher">Publisher</a> 实例相关的内存，并且停止与服务端的任何交互。  </li>
+<li>调用本方法会启动 SDK 退出逻辑。线程会保留，直到退出逻辑完成。因此，不要在回调线程中直接调用此 API；也不要在回调中等待主线程的执行。不然会造成死锁。</li>
 </ul>
 <p><span id="Publisher-setvideoconfig"></span></p>
 <h3 id="setvideoconfig">setVideoConfig</h3>
@@ -246,7 +246,7 @@
 <pre class="codehilite"><code class="language-java">public abstract int com.vewtn.Publisher.switchCamera()
 </code></pre>
 
-<p>切换摄像头采集时使用的前置/后置摄像头。</p>
+<p>使用内部采集时，切换使用的摄像头：前置或后置摄像头。</p>
 <p><strong>返回值</strong></p>
 <ul>
 <li>0：方法调用成功  </li>
@@ -461,9 +461,9 @@
 </ul>
 <p><strong>注意</strong></p>
 <ul>
-<li>请确保和需要销毁的 <a href="#subscriber">Subscriber</a> 实例相关的业务场景全部结束后，才调用此方法  </li>
-<li>该方法在调用之后，会销毁所有和此 <a href="#subscriber">Subscriber</a> 实例相关的内存，并且停止与媒体服务器的任何交互  </li>
-<li>调用本方法会启动 SDK 退出逻辑。引擎线程会保留，直到退出逻辑完成。因此，不要在回调线程中直接调用此 API，也不要在回调中等待主线程的执行，并同时在主线程调用本方法。不然会造成死锁。</li>
+<li>请确保需要销毁的 <a href="#subscriber">Subscriber</a> 实例相关的业务场景全部结束后，才调用此方法  </li>
+<li>该方法在调用之后，会销毁所有和此 <a href="#subscriber">Subscriber</a> 实例相关的内存，并且停止与服务端的任何交互  </li>
+<li>调用本方法会启动 SDK 退出逻辑。引擎线程会保留，直到退出逻辑完成。因此，不要在回调线程中直接调用此 API；也不要在回调中等待主线程的执行。不然会造成死锁。</li>
 </ul>
 <p><span id="Subscriber-setremoteview"></span></p>
 <h3 id="setremoteview">setRemoteView</h3>
