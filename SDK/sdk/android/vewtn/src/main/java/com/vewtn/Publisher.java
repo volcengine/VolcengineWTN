@@ -240,7 +240,7 @@ public abstract class Publisher {
      * @type api
      * @brief 发布音视频流
      * @param url WHIP 请求的 url。<br>
-     *        url 由 WTN 固定域名 `https://wtn.volcvideo.com`，PUSH 方法，appID，你设定的 streamID, token 和 TokenType 拼接得到。 <br>
+     *        url 由 WTN 固定域名 `https://wtn.volcvideo.com`，PUSH 方法，appID，你设定的 streamID， token 和 TokenType 拼接得到。 <br>
      *        形如：`https://wtn.volcvideo.com/push/<appID>/<streamID>?Token=<token>&TokenType=Bearer`
      * @return  <br>
      *        + 0：方法调用成功  <br>
@@ -255,7 +255,7 @@ public abstract class Publisher {
      * @type api
      * @brief Publish the captured media stream.
      * @param url The url for WHIP request. <br>
-     *        Concatenate the fixed url `https://wtn.volcvideo.com`, PUSH method, appID, your specified streamID, token and TokenType into the value of url. <br>
+     *        Concatenate the fixed url `https://wtn.volcvideo.com`, PUSH method, appID, your specified streamID，token and TokenType into the value of url. <br>
      *        The url is like `https://wtn.volcvideo.com/push/<appID>/<streamID>?Token=<token>&TokenType=Bearer`.
      * @return   <br>
      *         + 0: Success <br>

@@ -1,5 +1,3 @@
-# Readme
-
 此项目是使用 WHIP / WHEP 协议，基于 WebRTC 原生库二次封装，在客户端上实现的通过 WTN（WebRTC Transmission Network）推拉流的 Android & iOS SDK。
 你可以参考此项目，自行搭建通过 WTN 推拉流的客户端 SDK，也可以直接使用此 SDK，在客户端上接入 WTN 实现推拉流。
 

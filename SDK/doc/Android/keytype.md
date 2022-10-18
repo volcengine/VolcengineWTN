@@ -14,8 +14,6 @@ public enum com.vewtn.PublisherEventHandler.PublishState
 | **StartPublishFailed** | 开始发布失败 |
 | **StopPublishSuccess** | 停止发布成功 |
 | **StopPublishFailed** | 停止发布失败 |
-| **}** |  |
-
 
 ## Reason
 ```java
@@ -56,8 +54,6 @@ public enum com.vewtn.SubscriberEventHandler.SubscribeState
 | **StartSubscribeFailed** | 开始订阅失败 |
 | **StopSubscribeSuccess** | 停止订阅成功 |
 | **StopSubscribeFailed** | 停止订阅失败 |
-| **}** |  |
-
 
 ## Reason
 ```java

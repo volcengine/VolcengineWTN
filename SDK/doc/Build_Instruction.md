@@ -8,14 +8,14 @@
 
 ## 编译步骤
 ### 步骤一: 在客户端 SDK 项目中添加 WebRTC 静态库
-1. 获取 WebRTC 静态库，包括为 Android 和 iOS 分别编译的，针对 arm64 架构和 amrv7 架构的 SDK。参考 [Development](https://webrtc.github.io/webrtc-org/native-code/development/)。
+1. 获取 WebRTC 静态库，包括为 Android 和 iOS 分别编译的，针对 arm64 架构和 amrv7 架构的 SDK。参考 [编译 WebRTC 静态库](Build_webrtc.md)。
 2. 将 WebRTC 静态库相关文件加入客户端 SDK 项目中：
-  1. 将 WebRTC 静态库中的头文件拷贝到：`./third_party/webrtc/headers/`;
-  2. 拷贝 iOS 静态库到：`./third_party/webrtc/ios/libwebrtc.a`；
-  3. 拷贝 Android 静态库和 Jar 包到以下位置：
-    - `./third_party/webrtc/android/armeabi-v7a/libwebrtc.a`
-    - `./third_party/webrtc/android/arm64-v8a/libwebrtc.a`
-    - `./third_party/webrtc/android/jar/libwebrtc.jar`
+     1. 将 WebRTC 静态库中的头文件拷贝到：`./third_party/webrtc/headers/`;
+     2. 拷贝 iOS 静态库到：`./third_party/webrtc/ios/libwebrtc.a`；
+     3. 拷贝 Android 静态库和 Jar 包到以下位置：
+          - `./third_party/webrtc/android/armeabi-v7a/libwebrtc.a`
+          - `./third_party/webrtc/android/arm64-v8a/libwebrtc.a`
+          - `./third_party/webrtc/android/jar/libwebrtc.jar`
 
 ### 步骤二：编译 WTN SDK
 #### 编译 WTN SDK for Android
@@ -30,10 +30,10 @@
 ├── cmake
 │   └── toolchains
 ├── doc
-├── src
-│   ├── android
-│   └── ios
 ├── sdk
+|   └── src
+│       ├── android
+│       └── ios
 └── third_party
     ├── boost_1_69_0
     └── webrtc
