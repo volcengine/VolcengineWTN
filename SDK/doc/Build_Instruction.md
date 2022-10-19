@@ -25,15 +25,16 @@
 在根目录下执行：`cmake -GXcode -DRTC_PLATFORM=ios -Bbuild_ios`。
 
 ## 目录结构
+
 项目的目录结构如下：
 ```
 ├── cmake
 │   └── toolchains
 ├── doc
 ├── sdk
-|   └── src
-│       ├── android
-│       └── ios
+│   ├── android
+│   └── ios
+├── src
 └── third_party
     ├── boost_1_69_0
     └── webrtc
