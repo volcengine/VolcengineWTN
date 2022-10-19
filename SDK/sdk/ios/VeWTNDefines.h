@@ -157,17 +157,17 @@ typedef NS_ENUM(NSInteger, Reason) {
  */
 VEWTN_EXPORT @interface VideoConfig : NSObject
 /** {zh}
- * @brief 宽度（px）。默认值是 960。
+ * @brief 宽度（px）。默认值是 640。
  */
 /** {en}
- * @brief Width in px. 960 by default.
+ * @brief Width in px. 640 by default.
  */
 @property (nonatomic, assign) int width;
 /** {zh}
- * @brief 高度（px）。默认值是 640。
+ * @brief 高度（px）。默认值是 960。
  */
 /** {en}
- * @brief Height in px. 640 by default.
+ * @brief Height in px. 960 by default.
  */
 @property (nonatomic, assign) int height;
 /** {zh}

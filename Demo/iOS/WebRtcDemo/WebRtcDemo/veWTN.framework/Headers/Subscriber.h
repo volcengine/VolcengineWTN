@@ -74,7 +74,7 @@ VEWTN_EXPORT @interface Subscriber : NSObject
  * @notes  <br>
  *      + 请确保需要销毁的 Subscriber{@link #Subscriber} 实例相关的业务场景全部结束后，才调用此方法  <br>
  *      + 该方法在调用之后，会销毁所有和此 Subscriber{@link #Subscriber} 实例相关的内存，并且停止与服务端的任何交互  <br>
- *      + 调用本方法会启动 SDK 退出逻辑。引擎线程会保留，直到退出逻辑完成。因此，不要在回调线程中直接调用此 API；也不要在回调中等待主线程的执行。不然会造成死锁。
+ *      + 调用本方法会启动 SDK 退出逻辑。线程会保留，直到退出逻辑完成。
  */    
 /** {en}
  * @type api

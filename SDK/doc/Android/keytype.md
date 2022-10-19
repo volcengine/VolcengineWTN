@@ -99,15 +99,15 @@ public class com.vewtn.VideoConfig
 <span id="VideoConfig-width"></span>
 #### width
 ```java
-public int com.vewtn.VideoConfig.width = 960;
+public int com.vewtn.VideoConfig.width = 640;
 ```
-宽度（px）。默认值是 960。
+宽度（px）。默认值是 640。
 
 
 <span id="VideoConfig-height"></span>
 #### height
 ```java
-public int com.vewtn.VideoConfig.height = 640;
+public int com.vewtn.VideoConfig.height = 960;
 ```
 高度（px）。默认值是 960。
 
