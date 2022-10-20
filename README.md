@@ -20,7 +20,7 @@ WTN 提供了基于 WebRTC 标准信令交互协议的 HTTP 接口。你可以�
 
 ## 社区版 SDK
 
-WTN 提供了基于 [WHIP](https://www.ietf.org/id/draft-ietf-wish-whip-04.html)/[WHEP](https://www.ietf.org/id/draft-murillo-whep-00.html) 的 HTTP API 和 WebRTC 开源库封装的社区版 SDK。你可以集成此 SDK，在客户端接入 WTN，实现音视频推拉流功能。
+WTN 提供了基于 [WHIP](https://datatracker.ietf.org/doc/draft-ietf-wish-whip/)/[WHEP](https://datatracker.ietf.org/doc/draft-murillo-whep/) 的 HTTP API 和 WebRTC 开源库封装的社区版 SDK。你可以集成此 SDK，在客户端接入 WTN，实现音视频推拉流功能。
 
 社区版 SDK 仅封装了推拉流和少量音视频设备功能控制的能力。你也可以参考社区版 SDK 的实现，自行封装 SDK，实现在客户端接入 WTN 的能力。
 
