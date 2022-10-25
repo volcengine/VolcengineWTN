@@ -18,7 +18,7 @@
      3. 拷贝 Jar 包到以下位置：
           - `./third_party/webrtc/android/jar/libwebrtc.jar`
 
-##### 步骤二：编译 WTN SDK
+#### 步骤二：编译 WTN SDK
 使用 Android Studio 打开 `./sdk/android`，进行构建编译。
 
 ## 编译 WTN SDK for iOS
