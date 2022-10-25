@@ -15,10 +15,10 @@ package com.vewtn;
  */
 public class VideoConfig {
    /** {zh}
-    * @brief 宽度（px）。默认值是 960。
+    * @brief 宽度（px）。默认值是 640。
     */
    /** {en}
-    * @brief Width in px. 960 by default.
+    * @brief Width in px. 640 by default.
     */
     public int width = 960;
    /** {zh}

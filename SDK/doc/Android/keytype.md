@@ -14,8 +14,6 @@ public enum com.vewtn.PublisherEventHandler.PublishState
 | **StartPublishFailed** | 开始发布失败 |
 | **StopPublishSuccess** | 停止发布成功 |
 | **StopPublishFailed** | 停止发布失败 |
-| **}** |  |
-
 
 ## Reason
 ```java
@@ -56,8 +54,6 @@ public enum com.vewtn.SubscriberEventHandler.SubscribeState
 | **StartSubscribeFailed** | 开始订阅失败 |
 | **StopSubscribeSuccess** | 停止订阅成功 |
 | **StopSubscribeFailed** | 停止订阅失败 |
-| **}** |  |
-
 
 ## Reason
 ```java
@@ -103,15 +99,15 @@ public class com.vewtn.VideoConfig
 <span id="VideoConfig-width"></span>
 #### width
 ```java
-public int com.vewtn.VideoConfig.width = 960;
+public int com.vewtn.VideoConfig.width = 640;
 ```
-宽度（px）。默认值是 960。
+宽度（px）。默认值是 640。
 
 
 <span id="VideoConfig-height"></span>
 #### height
 ```java
-public int com.vewtn.VideoConfig.height = 640;
+public int com.vewtn.VideoConfig.height = 960;
 ```
 高度（px）。默认值是 640。
 

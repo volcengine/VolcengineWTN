@@ -9,7 +9,7 @@
 | [setLocalView](api.md#Publisher-setlocalview) | 设置本地视频渲染时使用的视图。 |
 | [startVideoCapture](api.md#Publisher-startvideocapture) | 开启摄像头采集。默认为关闭状态。  <br> |
 | [stopVideoCapture](api.md#Publisher-stopvideocapture) | 关闭摄像头采集。 |
-| [switchCamera](api.md#Publisher-switchcamera) | 切换摄像头采集时使用的前置/后置摄像头。 |
+| [switchCamera](api.md#Publisher-switchcamera) | 使用内部采集时，切换使用的摄像头：前置或后置摄像头。 |
 | [startAudioCapture](api.md#Publisher-startaudiocapture) | 开启麦克风采集。默认为关闭状态。  <br> |
 | [stopAudioCapture](api.md#Publisher-stopaudiocapture) | 关闭麦克风采集。 |
 | [startPublish](api.md#Publisher-startpublish) | 发布音视频流 |

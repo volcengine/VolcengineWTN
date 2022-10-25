@@ -79,7 +79,7 @@ typedef NS_ENUM(NSInteger, Reason)
 ```objectivec
 @property (nonatomic, assign) int width;
 ```
-宽度（px）。默认值是 960。
+宽度（px）。默认值是 640。
 
 
 <span id="VideoConfig-height"></span>
@@ -87,7 +87,7 @@ typedef NS_ENUM(NSInteger, Reason)
 ```objectivec
 @property (nonatomic, assign) int height;
 ```
-高度（px）。默认值是 640。
+高度（px）。默认值是 960。
 
 
 <span id="VideoConfig-fps"></span>

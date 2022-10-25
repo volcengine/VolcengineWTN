@@ -58,9 +58,9 @@ public abstract class Subscriber {
      *        + 0：设置成功；<br>
      *        + <0：设置失败
      * @notes  <br>
-     *      + 请确保和需要销毁的 Subscriber{@link #Subscriber} 实例相关的业务场景全部结束后，才调用此方法  <br>
-     *      + 该方法在调用之后，会销毁所有和此 Subscriber{@link #Subscriber} 实例相关的内存，并且停止与媒体服务器的任何交互  <br>
-     *      + 调用本方法会启动 SDK 退出逻辑。引擎线程会保留，直到退出逻辑完成。因此，不要在回调线程中直接调用此 API，也不要在回调中等待主线程的执行，并同时在主线程调用本方法。不然会造成死锁。
+     *      + 请确保需要销毁的 Subscriber{@link #Subscriber} 实例相关的业务场景全部结束后，才调用此方法  <br>
+     *      + 该方法在调用之后，会销毁所有和此 Subscriber{@link #Subscriber} 实例相关的内存，并且停止与服务端的任何交互  <br>
+     *      + 调用本方法会启动 SDK 退出逻辑。线程会保留，直到退出逻辑完成。
      */    
     /** {en}
      * @type api
@@ -137,7 +137,7 @@ public abstract class Subscriber {
      * @brief 开启订阅音视频流。  <br>
      *        调用该方法后，本地用户会收到 onSubscribeStateChanged{@link #SubscriberEventHandler#onSubscribeStateChanged} 的回调。  <br>
      * @param url WHEP 请求的 url。<br>
-     *        url 由 WTN 固定域名 `https://wtn.volcvideo.com`，POST/PULL 方法，appID，和你设定的 streamID 拼接得到。 <br>
+     *        url 由 WTN 固定域名 `https://wtn.volcvideo.com`，PULL 方法，appID，和你设定的 streamID 拼接得到。 <br>
      *        形如：`https://wtn.volcvideo.com/pull/<appID>/<streamID>`
      * @return  <br>
      *        + 0: 成功  <br>
@@ -153,7 +153,7 @@ public abstract class Subscriber {
      * @brief Subscribe the remote media streams. <br>
      *        After calling the API, you will receive onSubscribeStateChanged{@link #SubscriberEventHandler#onSubscribeStateChanged}.
      * @param url The url for WHEP request. <br>
-     *        Concatenate the fixed url `https://wtn.volcvideo.com`, POST/PULL method, appID, and your specified streamID into the value of url. <br>
+     *        Concatenate the fixed url `https://wtn.volcvideo.com`, PULL method, appID, and your specified streamID into the value of url. <br>
      *        The url is like `https://wtn.volcvideo.com/pull/<appID>/<streamID>`.
      * @return   <br>
      *         + 0: Success <br>
