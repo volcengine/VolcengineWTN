@@ -2,11 +2,9 @@
 
 ## WTN 介绍
 
-[火山引擎 WebRTC 传输网络](https://www.volcengine.com/docs/6752/122560)（VolcEngine WebRTC Transmission Network，简写 WTN）构建于可支撑亿级 DAU 实时通信的全球实时传输网络之上，可以提供全球范围内高质量、低延时的实时音视频通信能力。
+[火山引擎 WebRTC 传输网络](https://www.volcengine.com/docs/6752/122560)（VolcEngine WebRTC Transmission Network，简写 WTN）构建于可支撑亿级 DAU 的全球实时传输网络之上，可以提供全球范围内高质量、低延时的实时音视频通信能力。
 
 通过接入 WTN，你可以实现丰富多彩的实时音视频应用。
-
-> 如果查看页面时，显示页面不存在，可能是因为你没有权限。请联系[技术支持人员](https://www.volcengine.com/contact/product)添加权限。
 
 ## 服务端 API
 
