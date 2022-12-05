@@ -7,6 +7,7 @@ import styles from './index.module.less';
 import Copy from 'react-copy-to-clipboard';
 import { message } from 'antd';
 import { useTranslation } from 'react-i18next';
+import React from 'react';
 
 import linkImg from '/assets/images/link2x.png';
 
@@ -16,7 +17,6 @@ interface ViewBtnProps {
 
 function ViewCopyBtn(props: ViewBtnProps) {
   const { shareUrl } = props;
-  console.log(props);
   const { t } = useTranslation();
   return (
     <div className={styles['view-btn']}>
@@ -44,4 +44,4 @@ function ViewCopyBtn(props: ViewBtnProps) {
   );
 }
 
-export default ViewCopyBtn;
+export default React.memo(ViewCopyBtn);

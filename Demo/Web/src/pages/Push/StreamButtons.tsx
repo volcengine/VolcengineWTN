@@ -3,7 +3,7 @@
  * SPDX-license-identifier: BSD-3-Clause
  */
 
-import { Button, message, Modal } from 'antd';
+import { Button, Modal } from 'antd';
 import stopImg from '/assets/images/stop2x.png';
 import { useEffect, useState } from 'react';
 import { ExclamationOutlined } from '@ant-design/icons';
@@ -67,10 +67,6 @@ function StreamButtons(props: Props) {
 
   const handlePublish = () => {
     if (!published) {
-      message.success({
-        className: styles.message,
-        content: <span className="title">{t('pushSuccMsg')}</span>,
-      });
       onPublish(!published);
     } else {
       setStopModalVisible(true);

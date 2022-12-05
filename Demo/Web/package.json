@@ -15,6 +15,7 @@
     "@reduxjs/toolkit": "^1.8.3",
     "antd": "^4.20.5",
     "debug": "^4.3.4",
+    "eventemitter3": "^4.0.7",
     "i18next": "^21.8.14",
     "lodash-es": "^4.17.21",
     "rc-field-form": "~1.26.1",

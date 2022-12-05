@@ -13,7 +13,7 @@ import LogoCn from '/assets/images/headerLogoCn2x.png';
 import LogoEn from '/assets/images/headerLogoEn2x.png';
 
 import { RootState } from '@/store/types';
-import { DEMO_VERSION } from '@/config';
+import { DEMO_VERSION, DOC_URL } from '@/config';
 import { selectLanguage } from '@/store/reducer/language';
 
 function Push() {
@@ -45,7 +45,7 @@ function Push() {
           <Select.Option value="en">English</Select.Option>
         </Select>
         <span className="doc_link">
-          <a href="https://www.volcengine.com/docs/6752/127818" target="_blank" rel="noreferrer">
+          <a href={DOC_URL} target="_blank" rel="noreferrer">
             {t('document')}
           </a>
         </span>

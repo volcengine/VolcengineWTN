@@ -7,7 +7,7 @@ WebRTC 传输网络 Demo
 ```Shell
 yarn install
 
-yarn start
+yarn dev
 ```
 
 ## 项目结构

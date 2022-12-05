@@ -3,14 +3,14 @@
  * SPDX-license-identifier: BSD-3-Clause
  */
 
-import { Button, message } from 'antd';
+import { Button, message, Modal } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import { PoweroffOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
+import rtcClient from '@/lib/RtcClient';
+import { ERRORTYPE, PEEREVENT } from '@/lib/interface';
 import Header from './Header';
 import styles from './index.module.less';
-
-import rtcClient from '@/lib/RtcClient';
 
 function View() {
   const player = useRef<HTMLVideoElement>(null);
@@ -26,7 +26,6 @@ function View() {
     const appid = urlObj.searchParams.get('appid');
     const streamid = urlObj.searchParams.get('streamid');
     const domain = urlObj.searchParams.get('domain');
-    const token = urlObj.searchParams.get('token');
 
     // Your Pull URL
     const url = `https://${domain}/pull/${appid}/${streamid}`;
@@ -42,10 +41,38 @@ function View() {
         };
         player.current.srcObject = stream;
       }
+      setPulling(true);
     } catch (e) {
-      message.error(t('noStream'));
+      //   message.error(t('noStream'));
+      console.error('startSubscribe', e);
+      message.error(t('pullHttpError'));
     }
   };
+
+  useEffect(() => {
+    const handelDisconnect = (err: ERRORTYPE) => {
+      setPulling(false);
+      if (err === ERRORTYPE.MEDIA) {
+        message.error(t('pullMediaError'));
+      } else if (err === ERRORTYPE.PEER) {
+        Modal.confirm({
+          content: t('pullP2pError'),
+          okText: t('retry'),
+          cancelText: t('close'),
+          onOk: () => {
+            rtcClient.beforeReSubscribe();
+            startSubscribe();
+          },
+        });
+      }
+    };
+
+    rtcClient.on(PEEREVENT.Disconnect, handelDisconnect);
+
+    return () => {
+      rtcClient.removeListener(PEEREVENT.Disconnect, handelDisconnect);
+    };
+  }, [pullUrl, setPulling]);
 
   useEffect(() => {
     if (pullUrl && player.current) {
@@ -53,18 +80,31 @@ function View() {
     }
   }, [pullUrl, player]);
 
-  const stopSubscribe = async () => {
-    return await rtcClient.stopSubscribe();
-  };
-
   const handlePull = async () => {
-    setPulling(!pulling);
-    if (pulling) {
-      setStopping(true);
-      const res = await stopSubscribe();
+    setStopping(true);
+    try {
+      if (pulling) {
+        const res = (await rtcClient.stopSubscribe()) as {
+          code: number;
+          status: number;
+        };
+
+        if (res.code === ERRORTYPE.SUCCESS) {
+          setPulling(!pulling);
+        }
+
+        if (res.code !== ERRORTYPE.SUCCESS) {
+          console.error('停止拉流失败', res);
+        }
+
+        if (res.code === ERRORTYPE.HTTP) {
+          message.error(t('stopPullError'));
+        }
+      } else {
+        await startSubscribe();
+      }
+    } finally {
       setStopping(false);
-    } else {
-      startSubscribe();
     }
   };
 
