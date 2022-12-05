@@ -3,10 +3,12 @@
  * SPDX-license-identifier: BSD-3-Clause
  */
 
+import Eventemitter from 'eventemitter3';
 import { Devices } from '@/pages/Push/interface';
 import WhipClient from './WhipClient';
+import { ERRORTYPE, PEEREVENT } from './interface';
 
-class RtcClient {
+class RtcClient extends Eventemitter {
   whip?: WhipClient;
 
   peer?: RTCPeerConnection;
@@ -24,6 +26,8 @@ class RtcClient {
   private _localVideoTrack?: MediaStreamTrack;
 
   private _published: boolean = false;
+
+  private _subscribed: boolean = false;
 
   private _videoPlayer?: HTMLVideoElement;
 
@@ -78,6 +82,16 @@ class RtcClient {
   };
 
   /**
+   * 停止捕获音频
+   */
+  stopAudioCapture = () => {
+    this._localAudioTrack?.stop();
+    if (this._published) {
+      this._updatePublish();
+    }
+  };
+
+  /**
    * 开始捕获视频
    * @param deviceId
    */
@@ -104,6 +118,16 @@ class RtcClient {
       }
     } catch (e) {
       console.error(e);
+    }
+  };
+
+  /**
+   * 停止捕获视频
+   */
+  stopVideoCapture = () => {
+    this._localVideoTrack?.stop();
+    if (this._published) {
+      this._updatePublish();
     }
   };
 
@@ -260,26 +284,44 @@ class RtcClient {
    * @param tracks 需要发布的流
    */
   publish = async (publishUrl: string) => {
-    if (!this.peer) {
-      this.peer = new RTCPeerConnection({});
+    this.initPeerConnection();
+
+    this.whip = new WhipClient(this.peer!);
+    this.whip.setPublishUrl(publishUrl);
+
+    const res = await this.whip.startPublish(this._localAudioTrack, this._localVideoTrack);
+
+    if (res.code === ERRORTYPE.SUCCESS) {
+      this._published = true;
     }
 
-    this.whip = new WhipClient(this.peer, publishUrl);
-    this.whip.start(this._localAudioTrack, this._localVideoTrack);
-    this._published = true;
+    return res;
+  };
+
+  beforeRePublish = () => {
+    this.destoryPeer();
+    this._published = false;
   };
 
   /**
    * 停止发布流
    */
   unPublish = async () => {
-    try {
-      await this.whip?.stop();
-      this._published = false;
-      this.peer = undefined;
-    } catch (err) {
-      throw new Error('stop publish error');
+    if (!this.whip) {
+      return {
+        code: ERRORTYPE.CLIENT,
+        message: 'no WhipClient',
+      };
     }
+
+    const res = await this.whip.stop();
+
+    if (res?.code === ERRORTYPE.SUCCESS) {
+      this.destoryPeer();
+      this._published = false;
+    }
+
+    return res;
   };
 
   /**
@@ -289,41 +331,80 @@ class RtcClient {
    */
   subscribe = async (url: string): Promise<MediaStream> => {
     return new Promise((resolve, reject) => {
-      if (!this.peer) {
-        this.peer = new RTCPeerConnection({});
-      }
-
-      this.peer.ontrack = function (event) {
-        if (event && event.streams) {
-          if (event.track.kind === 'video') {
-            resolve(event.streams[0]);
+      const sub = async () => {
+        this.initPeerConnection();
+        this.peer!.ontrack = function (event) {
+          if (event && event.streams) {
+            if (event.track.kind === 'video') {
+              resolve(event.streams[0]);
+            }
           }
+        };
+
+        this.whip = new WhipClient(this.peer!);
+        this.whip.setSubscribeUrl(url);
+        const res = await this.whip.startSubscribe();
+        if (res.code !== ERRORTYPE.SUCCESS) {
+          reject(res);
+        } else {
+          this._subscribed = true;
         }
       };
-
-      this.whip = new WhipClient(this.peer, url);
-      this.whip.startSubscribe().catch((err) => {
-        reject(err);
-      });
+      sub();
     });
+  };
+
+  beforeReSubscribe = () => {
+    this.destoryPeer();
+    this._subscribed = false;
   };
 
   /**
    * 停止订阅
    */
-  stopSubscribe = async (): Promise<
-    | 'success'
-    | {
-        message: string;
-      }
-  > => {
-    try {
-      await this.whip?.stop();
-      this.peer = undefined;
-      return 'success';
-    } catch (err: any) {
-      return err as {
-        message: string;
+  stopSubscribe = async () => {
+    if (!this.whip) {
+      return {
+        code: ERRORTYPE.CLIENT,
+        message: 'no WhipClient',
+      };
+    }
+
+    const res = await this.whip.stop();
+
+    if (res?.code === ERRORTYPE.SUCCESS) {
+      this._subscribed = false;
+      this.destoryPeer();
+    }
+
+    return res;
+  };
+
+  private destoryPeer = () => {
+    if (this.peer) {
+      this.peer.close();
+      this.peer.onconnectionstatechange = null;
+    }
+    this.peer = undefined;
+    this.whip = undefined;
+  };
+
+  private initPeerConnection = () => {
+    if (!this.peer) {
+      this.peer = new RTCPeerConnection({});
+
+      this.peer.onconnectionstatechange = () => {
+        if (
+          this.peer?.iceConnectionState === 'failed' ||
+          this.peer?.iceConnectionState === 'closed' ||
+          this.peer?.connectionState === 'failed'
+        ) {
+          if (this._subscribed || this._published) {
+            this.emit(PEEREVENT.Disconnect, ERRORTYPE.PEER);
+          } else {
+            this.emit(PEEREVENT.Disconnect, ERRORTYPE.MEDIA);
+          }
+        }
       };
     }
   };

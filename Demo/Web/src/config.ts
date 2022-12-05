@@ -3,7 +3,9 @@
  * SPDX-license-identifier: BSD-3-Clause
  */
 
-export const BASENAME = import.meta.env.VITE_BASE_NAME || '/';
+export const BASENAME = (window as unknown as any).BASEURL || import.meta.env.VITE_BASE_NAME || '/';
+
+export const isDev = window.location.hostname === 'localhost';
 
 export const DEFAULTCONFIG = {
   resolution: {
@@ -79,3 +81,5 @@ export const RESOLUTIOIN_LIST = [
 export const Frame = [15, 20, 24, 30, 60];
 
 export const DEMO_VERSION = '1.0.0';
+
+export const DOC_URL = 'https://www.volcengine.com/docs/6752';

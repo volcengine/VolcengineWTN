@@ -21,5 +21,16 @@
   "confirmStop": "确定停止推流么?",
   "timeUseoutText": "本产品仅用于功能体验，单次时长不超过20分钟",
   "getDeviceFailed": "获取设备失败!",
-  "noStream": "没有该视频流!"
+  "noStream": "没有该视频流!",
+  "pushHttpError": "推流请求异常",
+  "pushTokenExpired": "推流Token过期",
+  "pushMediaError": "推流失败",
+  "pushP2pError": "网络已断开，请重试",
+  "stopPushError": "停止推流失败",
+  "retry": "重试",
+  "close": "关闭",
+  "pullHttpError": "拉流请求异常",
+  "pullMediaError": "拉流失败",
+  "pullP2pError": "网络已断开，请重试",
+  "stopPullError": "停止拉流失败"
 }

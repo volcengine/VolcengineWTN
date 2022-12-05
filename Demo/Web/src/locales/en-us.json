@@ -21,5 +21,16 @@
   "confirmStop": "Are you sure to stop?",
   "timeUseoutText": "This product is only for functional experience, more than 20 minutes will be disconnected",
   "getDeviceFailed": "Failed to get devices!",
-  "noStream": "No video streaming!"
+  "noStream": "No video streaming!",
+  "pushHttpError": "Request Push stream failed",
+  "pushTokenExpired": "Push stream token expired",
+  "pushMediaError": "Start Push stream failed",
+  "pushP2pError": "Network disconnected, please try again",
+  "stopPushError": "Stop Push stream failed",
+  "retry": "retry",
+  "close": "close",
+  "pullHttpError": "Request Pull stream failed",
+  "pullMediaError": "Start Pull stream failed",
+  "pullP2pError": "Network disconnected, please try again",
+  "stopPullError": "Stop Pull stream failed"
 }

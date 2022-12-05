@@ -3,6 +3,8 @@
  * SPDX-license-identifier: BSD-3-Clause
  */
 
+import { ERRORTYPE } from './interface';
+
 /**
  * 使用了whip协议，https://datatracker.ietf.org/doc/html/draft-ietf-wish-whip-01
  * 现在只支持start / stop 进行p2p连接
@@ -12,16 +14,25 @@ class WhipClient {
 
   resourceURL: URL | undefined;
 
-  url: string;
+  publishUrl: string | undefined;
+
+  subscribeUrl: string | undefined;
 
   private _audioTransceiver?: RTCRtpTransceiver;
 
   private _videoTransceiver?: RTCRtpTransceiver;
 
-  constructor(peerConn: RTCPeerConnection, url: string) {
+  constructor(peerConn: RTCPeerConnection) {
     this.peerConn = peerConn;
-    this.url = url;
   }
+
+  setPublishUrl = (publishUrl: string) => {
+    this.publishUrl = publishUrl;
+  };
+
+  setSubscribeUrl = (subscribeUrl: string) => {
+    this.subscribeUrl = subscribeUrl;
+  };
 
   /**
    * p2p建联，offer交换
@@ -29,9 +40,12 @@ class WhipClient {
    * @param url
    * @returns
    */
-  async start(audioTrack?: MediaStreamTrack, videoTrack?: MediaStreamTrack) {
+  async startPublish(audioTrack?: MediaStreamTrack, videoTrack?: MediaStreamTrack) {
     if (!this.peerConn) {
-      return;
+      return {
+        code: ERRORTYPE.CLIENT,
+        message: 'Create PeerConnection First',
+      };
     }
 
     const ms = new MediaStream();
@@ -55,21 +69,42 @@ class WhipClient {
       'Content-Type': 'application/sdp',
     };
 
-    const res = await fetch(this.url, { method: 'POST', body: offer.sdp, headers });
+    try {
+      const res = await fetch(this.publishUrl!, { method: 'POST', body: offer.sdp, headers });
 
-    if (!res.ok) {
-      return res;
+      if (!res.ok) {
+        return {
+          code: ERRORTYPE.HTTP,
+          status: res.status,
+          message: 'Publish err',
+        };
+      }
+      if (!res.headers.get('location')) {
+        console.error('no http header location', res);
+        return {
+          code: ERRORTYPE.HTTP,
+          status: 400,
+          message: 'Resource url unknow',
+        };
+      }
+
+      this.resourceURL = new URL(res.headers.get('location') || '', this.publishUrl);
+
+      const sdp = await res.text();
+      await setLocalOk;
+      const answer = new RTCSessionDescription({ type: 'answer', sdp });
+      await this.peerConn.setRemoteDescription(answer);
+      return {
+        code: ERRORTYPE.SUCCESS,
+        message: 'success',
+      };
+    } catch (e) {
+      console.error('startPublish err', e);
+      return {
+        code: ERRORTYPE.CLIENT,
+        message: 'something err',
+      };
     }
-    if (!res.headers.get('location')) {
-      throw new Error('Resource url unknow');
-    }
-
-    this.resourceURL = new URL(res.headers.get('location') || '', this.url);
-
-    const sdp = await res.text();
-    await setLocalOk;
-    const answer = new RTCSessionDescription({ type: 'answer', sdp });
-    await this.peerConn.setRemoteDescription(answer);
   }
 
   /**
@@ -80,7 +115,10 @@ class WhipClient {
    */
   async startSubscribe() {
     if (!this.peerConn) {
-      return;
+      return {
+        code: ERRORTYPE.CLIENT,
+        message: 'Create PeerConnection First',
+      };
     }
 
     this._audioTransceiver = this.peerConn.addTransceiver('audio', {
@@ -98,21 +136,42 @@ class WhipClient {
       'Content-Type': 'application/sdp',
     };
 
-    const res = await fetch(this.url, { method: 'POST', body: offer.sdp, headers });
+    try {
+      const res = await fetch(this.subscribeUrl!, { method: 'POST', body: offer.sdp, headers });
 
-    if (!res.ok) {
-      return res;
+      if (!res.ok) {
+        return {
+          code: ERRORTYPE.HTTP,
+          status: res.status,
+          message: 'Subscribe err',
+        };
+      }
+      if (!res.headers.get('location')) {
+        console.error('no http header location', res);
+        return {
+          code: ERRORTYPE.HTTP,
+          status: 400,
+          message: 'Resource url unknow',
+        };
+      }
+
+      this.resourceURL = new URL(res.headers.get('location') || '', this.subscribeUrl);
+
+      const sdp = await res.text();
+      await setLocalOk;
+      const answer = new RTCSessionDescription({ type: 'answer', sdp });
+      await this.peerConn.setRemoteDescription(answer);
+      return {
+        code: ERRORTYPE.SUCCESS,
+        message: 'success',
+      };
+    } catch (e) {
+      console.error('start subscribe err', e);
+      return {
+        code: ERRORTYPE.CLIENT,
+        message: 'something err',
+      };
     }
-    if (!res.headers.get('location')) {
-      throw new Error('Resource url unknow');
-    }
-
-    this.resourceURL = new URL(res.headers.get('location') || '', this.url);
-
-    const sdp = await res.text();
-    await setLocalOk;
-    const answer = new RTCSessionDescription({ type: 'answer', sdp });
-    await this.peerConn.setRemoteDescription(answer);
   }
 
   updateTrack = async (audioTrack?: MediaStreamTrack, videoTrack?: MediaStreamTrack) => {
@@ -135,19 +194,39 @@ class WhipClient {
    */
   async stop() {
     if (!this.peerConn) {
-      return;
+      return {
+        code: ERRORTYPE.CLIENT,
+        message: 'Create PeerConnection First',
+      };
     }
-    this.peerConn.close();
-    this.peerConn = undefined;
 
     if (!this.resourceURL) {
-      throw new Error('Resource url unknow');
+      return {
+        code: ERRORTYPE.CLIENT,
+        message: 'Resource url unknow',
+      };
     }
     const headers: Record<string, string> = {};
+    try {
+      const res = await fetch(this.resourceURL.href, { method: 'DELETE', headers });
+      if (!res.ok) {
+        return {
+          code: ERRORTYPE.HTTP,
+          status: res.status,
+          message: `Fetch rejected with status ${res.status}`,
+        };
+      }
 
-    const res = await fetch(this.resourceURL.href, { method: 'DELETE', headers });
-    if (!res.ok) {
-      throw new Error(`Fetch rejected with status ${res.status}`);
+      return {
+        code: ERRORTYPE.SUCCESS,
+        message: 'success',
+      };
+    } catch (err) {
+      console.error('stop  err', err);
+      return {
+        code: ERRORTYPE.HTTP,
+        message: 'something err',
+      };
     }
   }
 }
