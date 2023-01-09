@@ -240,7 +240,7 @@ public abstract int com.vewtn.Publisher.startPublish(
 
 | 参数名 | 类型 | 说明 |
 | --- | --- | --- |
-| url | **String** | WHIP 请求的 url。<br/>url 由 WTN 固定域名 `https://wtn.volcvideo.com`，PUSH 方法，appID，你设定的 streamID, token 和 TokenType 拼接得到。 <br/>形如：`https://wtn.volcvideo.com/push/<appID>/<streamID>?Token=<token>&TokenType=Bearer` |
+| url | **String** | WHIP 请求的 url。<br/>url 由 WTN 固定域名 `https://wtn.volcvideo.com`，PUB 方法，appID，你设定的 streamID, token 和 TokenType 拼接得到。 <br/>形如：`https://wtn.volcvideo.com/pub/<appID>/<streamID>?Token=<token>&TokenType=Bearer` |
 
 **返回值**
 
@@ -429,7 +429,7 @@ public abstract int com.vewtn.Subscriber.startSubscribe(
 
 | 参数名 | 类型 | 说明 |
 | --- | --- | --- |
-| url | **String** | WHIP 请求的 url。<br/>url 由 WTN 固定域名 `https://wtn.volcvideo.com`，PULL 方法，appID，和你设定的 streamID 拼接得到。 <br/>形如：`https://wtn.volcvideo.com/pull/<appID>/<streamID>` |
+| url | **String** | WHIP 请求的 url。<br/>url 由 WTN 固定域名 `https://wtn.volcvideo.com`，SUB 方法，appID，和你设定的 streamID 拼接得到。 <br/>形如：`https://wtn.volcvideo.com/sub/<appID>/<streamID>` |
 
 **返回值**
 
