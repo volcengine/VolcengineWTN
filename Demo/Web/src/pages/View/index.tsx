@@ -9,6 +9,8 @@ import { PoweroffOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import rtcClient from '@/lib/RtcClient';
 import { ERRORTYPE, PEEREVENT } from '@/lib/interface';
+import { subUrl } from "@/config"
+
 import Header from './Header';
 import styles from './index.module.less';
 
@@ -19,22 +21,9 @@ function View() {
   const [pulling, setPulling] = useState(true);
   const { t } = useTranslation();
 
-  const [pullUrl, setPullUrl] = useState('');
-
-  useEffect(() => {
-    const urlObj = new URL(location.href);
-    const appid = urlObj.searchParams.get('appid');
-    const streamid = urlObj.searchParams.get('streamid');
-    const domain = urlObj.searchParams.get('domain');
-
-    // Your Pull URL
-    const url = `https://${domain}/pull/${appid}/${streamid}`;
-    setPullUrl(url);
-  }, []);
-
   const startSubscribe = async () => {
     try {
-      const stream = await rtcClient.subscribe(pullUrl);
+      const stream = await rtcClient.subscribe(subUrl);
       if (player.current) {
         player.current.onloadeddata = () => {
           player.current?.play();
@@ -72,13 +61,13 @@ function View() {
     return () => {
       rtcClient.removeListener(PEEREVENT.Disconnect, handelDisconnect);
     };
-  }, [pullUrl, setPulling]);
+  }, [setPulling]);
 
   useEffect(() => {
-    if (pullUrl && player.current) {
+    if (player.current) {
       startSubscribe();
     }
-  }, [pullUrl, player]);
+  }, [player]);
 
   const handlePull = async () => {
     setStopping(true);
@@ -94,7 +83,7 @@ function View() {
         }
 
         if (res.code !== ERRORTYPE.SUCCESS) {
-          console.error('停止拉流失败', res);
+          console.error('停止订阅失败', res);
         }
 
         if (res.code === ERRORTYPE.HTTP) {

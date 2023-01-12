@@ -4,14 +4,14 @@
  */
 
 .media-button {
-  height: 40px;
-  background: #f2f3f5;
-  width: 56px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 56px;
+  height: 40px;
   margin-right: 16px;
   overflow: hidden;
+  background: #f2f3f5;
   border-radius: 20px;
 
   &[data-published='true'] {
@@ -20,9 +20,9 @@
 }
 
 .media-button-icon {
+  display: flex;
   width: 32px;
   height: 100%;
-  display: flex;
 
   :global {
     img {
@@ -48,10 +48,10 @@
 }
 
 .media-select-btn {
-  width: 24px;
-  height: 100%;
   display: flex;
   align-items: center;
+  width: 24px;
+  height: 100%;
 
   :global {
     img {
@@ -87,21 +87,21 @@
 
   &::after {
     position: absolute;
-    content: '';
+    bottom: 24px;
+    left: 50%;
     display: block;
     width: 10px;
     height: 10px;
-    bottom: 24px;
     background: #fff;
     transform: rotateZ(45deg) translateX(-14%);
-    left: 50%;
+    content: '';
   }
 
   :global {
     .media-devices-list-content {
+      padding: 16px 16px 4px;
       background: #fff;
       border-radius: 2px;
-      padding: 16px 16px 4px;
     }
 
     .ant-radio-group {
@@ -109,11 +109,11 @@
       flex-direction: column;
 
       .ant-radio-wrapper {
-        font-family: 'PingFang SC';
-        font-weight: 400;
-        font-size: 12px;
         margin-bottom: 8px;
         color: #1d2129;
+        font-weight: 400;
+        font-size: 12px;
+        font-family: 'PingFang SC';
         white-space: nowrap;
 
         .ant-radio {
@@ -125,8 +125,8 @@
 
         .ant-radio.ant-radio-checked {
           .ant-radio-inner {
-            border-width: 7px;
             border-color: #1664ff;
+            border-width: 7px;
 
             &::after {
               width: 10px;

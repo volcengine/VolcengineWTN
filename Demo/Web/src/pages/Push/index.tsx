@@ -9,6 +9,7 @@ import { message, Modal } from 'antd';
 import rtcClient from '@/lib/RtcClient';
 import { DEFAULTCONFIG, isDev } from '@/config';
 import { ERRORTYPE, PEEREVENT } from '@/lib/interface';
+import { pubUrl } from "@/config"
 
 import Header from './Header';
 import StreamButtons from './StreamButtons';
@@ -24,24 +25,6 @@ function Push() {
     pullUrl: '',
   });
   const player = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const urlObj = new URL(location.href);
-    const appid = urlObj.searchParams.get('appid');
-    const streamid = urlObj.searchParams.get('streamid');
-    const domain = urlObj.searchParams.get('domain');
-    const token = urlObj.searchParams.get('token');
-
-    // Your Push URL and Pull URL
-    const pushUrl = `https://${domain}/push/${appid}/${streamid}?TokenType=Bearer&Token=${token}`;
-    const pullUrl = isDev
-      ? `http://${location.host}/view?appid=${appid}&streamid=${streamid}&domain=${domain}`
-      : `https://${location.host}/wtn/streamingwithurl/view?appid=${appid}&streamid=${streamid}&domain=${domain}`;
-    setPushAndPullUrl({
-      pushUrl,
-      pullUrl,
-    });
-  }, []);
 
   const handlePublish = async (published: boolean) => {
     if (publishing) {
@@ -81,11 +64,21 @@ function Push() {
   };
 
   useEffect(() => {
+	const pullUrl = isDev
+	? `http://${location.host}/view`
+	: `https://${location.host}/wtn/streamingwithurl/view`;
+    setPushAndPullUrl({
+      pushUrl:pubUrl,
+      pullUrl:pullUrl,
+    });
+  }, []);
+
+  useEffect(() => {
     const handelDisconnect = (err: ERRORTYPE) => {
       setPublished(false);
       if (err === ERRORTYPE.MEDIA) {
         message.error(t('pushMediaError'));
-        console.error('推流失败，原因：媒体建连异常');
+        console.error('发布失败，原因：媒体建连异常');
       } else if (err === ERRORTYPE.PEER) {
         Modal.confirm({
           content: t('pushP2pError'),
