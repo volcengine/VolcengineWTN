@@ -4,12 +4,12 @@
  */
 
 .setting-button {
+  display: flex;
   width: 40px;
   height: 40px;
   margin-right: 40px;
-  display: flex;
-  border-radius: 50%;
   background: #f2f3f5;
+  border-radius: 50%;
 
   :global {
     img {
@@ -26,8 +26,8 @@
   }
 
   &[data-published='true'] {
-    background: #1d2129;
     margin-right: 12px;
+    background: #1d2129;
 
     &:hover {
       background: rgb(52, 55, 62);
@@ -44,22 +44,22 @@
 
   :global {
     .config {
-      padding-right: 20px;
       flex: 1;
+      padding-right: 20px;
 
       label {
         display: block;
+        margin-bottom: 4px;
         color: #4e5969;
         font-size: 12px;
-        margin-bottom: 4px;
       }
 
       .ant-select {
         width: 100%;
 
         .ant-select-selector {
-          border: none;
           background: #f2f3f8;
+          border: none;
           outline: none;
         }
       }

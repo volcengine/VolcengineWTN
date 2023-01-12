@@ -80,6 +80,10 @@ export const RESOLUTIOIN_LIST = [
 
 export const Frame = [15, 20, 24, 30, 60];
 
-export const DEMO_VERSION = '1.0.0';
+export const DEMO_VERSION = '1.1.0';
 
 export const DOC_URL = 'https://www.volcengine.com/docs/6752';
+
+export const pubUrl = 'YOUR_PUB_URL';
+
+export const subUrl = 'YOUR_SUB_URL';
