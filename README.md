@@ -8,24 +8,26 @@
 
 ## 服务端 API
 
-WTN 提供了基于 WebRTC 标准信令交互协议的 HTTP 接口。你可以通过这些接口，完成 Offer/Answer SDP 交换，使用 WebRTC JavaScript/Native 原生库完成 WTN 媒体服务建连。建连后，你可以推拉音视频流。
+WTN 提供了基于 WebRTC 标准信令交互协议的 HTTP 接口。你可以通过这些接口，完成 Offer/Answer SDP 交换，使用 WebRTC JavaScript/Native 原生库完成 WTN 媒体服务建连。建连后，你可以发布/订阅音视频流。
 
 关于这些 API 的详细信息，参看 API 文档：
--  [创建推流资源](https://www.volcengine.com/docs/6752/132482)；
--  [销毁推流资源](https://www.volcengine.com/docs/6752/132483)；
--  [创建拉流资源](https://www.volcengine.com/docs/6752/132484)；
--  [销毁拉流资源](https://www.volcengine.com/docs/6752/132485)。
+-  [创建发布资源](https://www.volcengine.com/docs/6752/132482)；
+-  [销毁发布资源](https://www.volcengine.com/docs/6752/132483)；
+-  [设置发布能力](https://www.volcengine.com/docs/6752/161924)；
+-  [创建订阅资源](https://www.volcengine.com/docs/6752/132484)；
+-  [销毁订阅资源](https://www.volcengine.com/docs/6752/132485)；
+-  [设置订阅能力](https://www.volcengine.com/docs/6752/161925)。
 
 ## 社区版 SDK
 
-WTN 提供了基于 [WHIP](https://datatracker.ietf.org/doc/draft-ietf-wish-whip/)/[WHEP](https://datatracker.ietf.org/doc/draft-murillo-whep/) 的 HTTP API 和 WebRTC 开源库封装的社区版 SDK。你可以集成此 SDK，在客户端接入 WTN，实现音视频推拉流功能。
+WTN 提供了基于 [WHIP](https://datatracker.ietf.org/doc/draft-ietf-wish-whip/)/[WHEP](https://datatracker.ietf.org/doc/draft-murillo-whep/) 的 HTTP API 和 WebRTC 开源库封装的社区版 SDK。你可以集成此 SDK，在客户端接入 WTN，实现音视频流发布订阅功能。
 
-社区版 SDK 仅封装了推拉流和少量音视频设备功能控制的能力。你也可以参考社区版 SDK 的实现，自行封装 SDK，实现在客户端接入 WTN 的能力。
+社区版 SDK 仅封装了发布订阅流和少量音视频设备功能控制的能力。你也可以参考社区版 SDK 的实现，自行封装 SDK，实现在客户端接入 WTN 的能力。
 
 | 平台 | 项目工程 | 编译 SDK | API 文档 |
 | --- | --- | --- | --- |
-| Android | [android](SDK/sdk/android/) | [编译 SDK](SDK/doc/Build_Instruction.md) | [API 文档](SDK/doc/Android/overview.md) |
-| iOS | [ios](SDK/sdk/ios/) | [编译 SDK](SDK/doc/Build_Instruction.md) | [API 文档](SDK/doc/iOS/overview.md) |
+| Android | [Android](SDK/sdk/android/) | [编译 SDK](SDK/doc/Build_Instruction.md) | [API 文档](SDK/doc/Android/overview.md) |
+| iOS | [iOS](SDK/sdk/ios/) | [编译 SDK](SDK/doc/Build_Instruction.md) | [API 文档](SDK/doc/iOS/overview.md) |
 
 ## 示例 Demo
 
@@ -37,4 +39,4 @@ WTN 也提供了 Android， iOS，和 Web 平台的 Demo 项目和 OBS 插件。
 | Android | [跑通 Android Demo 文档](https://www.volcengine.com/docs/6752/132445) |
 | iOS | [跑通 iOS Demo 文档](https://www.volcengine.com/docs/6752/132446) |
 | Web | [跑通 Web Demo 文档](https://www.volcengine.com/docs/6752/132447) |
-| OBS | [使用 OBS 插件推流](https://www.volcengine.com/docs/6752/132448) |
+| OBS | [使用 OBS 插件发布流](https://www.volcengine.com/docs/6752/132448) |
