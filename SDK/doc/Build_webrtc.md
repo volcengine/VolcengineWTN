@@ -1,11 +1,11 @@
 # 编译 WebRTC 静态库
 
-WTN 客户端 SDK 项目基于 WebRTC SDK 实现。你需要参考本文，编译在 Android 和 iOS 平台上适用的 WebRTC 静态库。
-注意，要编译 Android 和 iOS 平台上使用的 WebRTC SDK，你需要分别在 Linux 和 macOS 系统上完成。
+WTN 社区版 SDK 项目基于 WebRTC 静态库实现。你可以参考本文，编译在 Android 和 iOS 平台上适用的 WebRTC 静态库。
+注意，要编译 Android 和 iOS 平台上使用的 WebRTC 静态库，你需要分别在 Linux 和 macOS 系统上完成。
 
 ## 安装 depot_tools
 
-[depot_tools](https://chromium.googlesource.com/chromium/tools/depot_tools.git) 是 Chromium 开发的常用工具包。在编译 Android 和 iOS 平台上使用的 WebRTC SDK 前，你都必须在开发机器上，获取 depot_tools 项目并配置环境变量：
+[depot_tools](https://chromium.googlesource.com/chromium/tools/depot_tools.git) 是 Chromium 开发的常用工具包。在编译 Android 和 iOS 平台上使用的 WebRTC 静态库前，你都必须在开发机器上，获取 depot_tools 项目并配置环境变量：
 
 ```
 git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git 
@@ -17,9 +17,9 @@ source $HOME/.bash_profile
 fetch --help
 ```
 
-## 编译 WebRTC SDK for Android
+## 编译 Android 端 WebRTC 静态库
 
-你需要在 Linux 系统上，为 WTN SDK for Android 编译 WebRTC SDK。
+你需要在 Linux 系统上，为 WTN SDK 编译 Android 端 WebRTC 静态库。
 
 ```
 // 获取 WebRTC 项目源码
@@ -52,12 +52,12 @@ autoninja -C out/Release_arm64
 ### 编译产物
 
 静态库：
-- arm：`out/Release_arm/obj/libwebrtc.a`
-- arm64：`out/Release_arm64/obj/libwebrtc.a` 
+- armeabi-v7a：`out/Release_arm/obj/libwebrtc.a`
+- arm64-v8a：`out/Release_arm64/obj/libwebrtc.a` 
 
 jar包：
-- arm：`out/Release_arm/lib.java`
-- arm64：`out/Release_arm64/lib.java`
+- armeabi-v7a：`out/Release_arm/lib.java`
+- arm64-v8a：`out/Release_arm64/lib.java`
 
 头文件：可以通过以下脚本获取：
 
@@ -67,9 +67,9 @@ mkdir headers
 find . -name "*.h" | xargs -I {} cp --parents {} ./headers
 ```
 
-## 编译 WebRTC SDK for iOS
+## 编译 iOS 端 WebRTC 静态库
 
-你需要在 macOS 系统上，为 WTN SDK for iOS 编译 WebRTC SDK。
+你需要在 macOS 系统上，为 WTN SDK 编译 iOS 端 WebRTC 静态库。
 
 ```
 // 获取 WebRTC 项目源码

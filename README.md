@@ -31,8 +31,8 @@ WTN 提供了基于 [WHIP](https://datatracker.ietf.org/doc/draft-ietf-wish-whip
 
 ## 示例 Demo
 
-WTN 也提供了 Android， iOS，和 Web 平台的 Demo 项目和 OBS 插件。
-你可以参考 Demo 项目，了解在对应平台的应用中集成社区版 SDK 的方式；也可以使用 OBS 插件，实现直播等功能。参考对应文档进行试用：
+WTN 也提供了 Android，iOS，Web 平台的 Demo 项目和 OBS 插件。
+你可以参考 Demo 项目，了解在对应平台的应用中集成社区版 SDK 的方式；也可以使用 OBS 插件，实现流的发布(类似直播推流)等功能。
 
 | 平台 | 跑通 Demo 文档 |
 | --- | --- |
