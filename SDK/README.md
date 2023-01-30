@@ -1,5 +1,7 @@
-此项目是使用 WHIP / WHEP 协议，基于 WebRTC 静态库二次封装，在客户端上实现的通过 WTN（WebRTC Transmission Network）发布订阅的 Android & iOS SDK。
-你可以参考此项目，自行搭建通过 WTN 发布订阅的客户端 SDK，也可以直接使用此 SDK，在客户端上接入 WTN 实现流的发布订阅。
+# WTN 社区版 SDK
+
+此项目是使用 [WHIP](https://datatracker.ietf.org/doc/draft-ietf-wish-whip/)/[WHEP](https://datatracker.ietf.org/doc/draft-murillo-whep/) 协议，基于 WebRTC 静态库二次封装，在客户端上实现的通过 WTN（WebRTC Transmission Network）发布订阅流的 Android & iOS SDK。
+你可以参考此项目，自行搭建通过 WTN 发布订阅流的客户端 SDK，也可以直接使用此 SDK，在客户端上接入 WTN 实现流的发布订阅。
 
 ## 功能特性
 此项目包含以下功能：
