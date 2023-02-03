@@ -31,5 +31,8 @@ target_include_directories(${TARGET_NAME} PRIVATE
             )
 
 # link 3rd libs
-target_link_libraries(${TARGET_NAME} PUBLIC ${THIRD_PARTY_COMMON_PREFIX}/libwebrtc.a)
-
+if (RTC_PLATFORM_IOS.cache)
+    target_link_libraries(${TARGET_NAME} PUBLIC ${THIRD_PARTY_COMMON_PREFIX}/libwebrtc.a)
+elseif (RTC_PLATFORM_ANDROID.cache)
+    target_link_libraries(${TARGET_NAME} PUBLIC -Wl,--whole-archive  ${THIRD_PARTY_COMMON_PREFIX}/libwebrtc.a -Wl,--no-whole-archive)
+endif ()

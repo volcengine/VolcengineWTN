@@ -8,19 +8,13 @@ class JniGeneratorBuilder {
     fun build() {
         jniGenerator
             .appendBoard("$PackageName.jni", "NativeFunctions.java")
-            .appendBoard("$PackageName.internal", "PublisherImpl.java")
-            .appendBoard("$PackageName.internal", "PublisherEventHandlerImpl.java")
-            .appendBoard("$PackageName.internal", "SubscriberImpl.java")
-            .appendBoard("$PackageName.internal", "SubscriberEventHandlerImpl.java")
-            .appendBoard("$WebRTCPackageName", "Histogram.java")
-            .appendBoard("$WebRTCPackageName", "JniCommon.java")
-            .appendBoard("$WebRTCPackageName", "Logging.java")
-            .appendBoard("$WebRTCPackageName", "JNILogging.java")
-            .appendBoard("$WebRTCPackageName", "YuvHelper.java")
-            .appendBoard("$WebRTCPackageName", "VideoEncoderFactory.java")
-            .appendBoard("$WebRTCPackageName", "VideoDecoderFactory.java")
-            .appendBoard("$WebRTCPackageName", "H264Utils.java")
-            .appendBoard("$WebRTCPackageName", "VideoSink.java")
+            .appendBoard("$PackageName.internal", "RtcEventHandlerImpl.java")
+            .appendBoard("$PackageName.internal", "InternalEncodedVideoFrame.java")
+            .appendBoard("$PackageName.internal", "InternalAudioFrame.java")
+            .appendBoard("$PackageName.internal", "InternalRtcAudioStats.java")
+            .appendBoard("$PackageName.internal", "InternalRtcVideoStats.java")
+            .appendBoard("$PackageName.internal", "InternalVideoFrame.java")
+            .appendBoard("$PackageName.internal", "InternalStallInfo.java")
         jniGenerator.generateJNI()
     }
 
@@ -29,7 +23,6 @@ class JniGeneratorBuilder {
     }
 
     companion object {
-        const val WebRTCPackageName = "org.webrtc"
         const val PackageName = "com.vewtn"
     }
 }

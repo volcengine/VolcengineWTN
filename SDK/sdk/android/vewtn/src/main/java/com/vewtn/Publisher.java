@@ -6,9 +6,7 @@
 
 package com.vewtn;
 
-import android.content.Context;
 import android.view.View;
-import com.vewtn.internal.PublisherImpl;
 /** {zh}
  * @type api
  * @brief Publisher Class
@@ -17,95 +15,28 @@ import com.vewtn.internal.PublisherImpl;
  * @type api
  * @brief Publisher Class
  */
-public abstract class Publisher {
-    private static PublisherImpl publiser;
-    /** {zh}
-     * @type api
-     * @brief 创建 Publisher 实例。<br>
-     *        如果当前线程中未创建实例，那么你必须先调用此 API，以使用 WTN 提供的各种音视频能力。  <br>
-     * @param context Android Application Context
-     * @param handler SDK 回调给应用层的 Handler，详见 PublisherEventHandler{@link #PublisherEventHandler}
-     * @return  <br>
-     *        + Publisher：创建成功。返回一个可用的 Publisher{@link #Publisher} 实例  <br>
-     *        + Null：.so 文件加载失败，创建失败。
-     * @notes  <br>
-     *        + 你可以创建多个 Publisher 实例，以发布多个音视频流。<br>
-     *        + 你应注意保持 PublisherEventHandler 的生命周期必须大于 Publisher 的生命周期，即 handler 必须在调用 create 之前创建，在调用 destroy{@link #Publisher#destroy} 之后销毁。
-     */
-    /** {en}
-     * @type api
-     * @brief Create the Publisher instance.   <br>
-     *        If there is no instance in current thread, you must call this API to publish a media stream on WTN.
-     * @param context Android application context
-     * @param handler See IRTCVideoEventHandler{@link #IRTCVideoEventHandler}.
-     * @return  <br>
-     *         + Publisher: A successfully created Publisher instance.  <br>
-     *         + Null: Failed to load the .so file. No instance is returned. <br>
-     * @notes  <br>
-     *         + You can create multiple Publisher instances to publish multiple media streams. <br>
-     *         + The lifecycle of the handler must be longer than that of Publisher. The handler must be created before calling this API and destroyed after calling destroy{@link #Publisher#destroy}.  <br>
-     */
-    public synchronized static Publisher create(Context context, PublisherEventHandler handler) {
-        if (publiser == null && context != null) {
-            publiser = new PublisherImpl(context.getApplicationContext(), handler);
-        }
-        return publiser;
-    }
-
-    /** {zh}
-     * @type api
-     * @brief 销毁由 create{@link #Publisher#create} 所创建的 Publisher 实例，并释放所有相关资源
-     * @return <br>
-     *        + 0：设置成功；<br>
-     *        + <0：设置失败
-     * @notes  <br>
-     *      + 请确保需要销毁的 Publisher{@link #Publisher} 实例相关的业务场景全部结束后，才调用此方法。  <br>
-     *      + 该方法在调用之后，会销毁所有和此 Publisher{@link #Publisher} 实例相关的内存，并且停止与服务端的任何交互。  <br>
-     *      + 调用本方法会启动 SDK 退出逻辑。线程会保留，直到退出逻辑完成。
-     */
-    /** {en}
-     * @type api
-     * @brief Destroy the Publisher instance created by create{@link #Publisher#create}, and release all related resources. <br>
-     * @return <br>
-     *        + 0: Success. <br>
-     *        + <0: Failure.
-     * @notes  <br>
-     *       + Call this API after all business scenarios related to the instance are destroyed.  <br>
-     *       + When the API is called, the SDK destroys all memory associated with the instance and stops any interaction with the media server.  <br>
-     *       + Calling this API will start the SDK exit logic. The thread is held until the exit logic is complete. The engine thread is retained until the exit logic is complete.  <br>
-     *         Therefore, do not call this API directly in the callback thread, or wait for the execution of the main thread in the callback and call this API in the main thread at the same time. Otherwise, it will cause a deadlock.
-     */
-    public synchronized int destroy() {
-        if (publiser != null) {
-            publiser.destroyPublisher();
-            publiser = null;
-            return 0;
-        }
-        return -1;
-    }
+public interface Publisher {
    /** {zh}
     * @type api
     * @brief 设置视频采集参数
-    * @param video_config 视频采集参数。参看 VideoConfig{@link #VideoConfig}。
+    * @param videoConfig 视频采集参数。参看 VideoConfig{@link #VideoConfig}。
     * @return  <br>
     *        + 0: 成功  <br>
     *        + < 0: 失败  <br>
     * @notes  <br>
     *     + 必须在调用 startVideoCapture{@link #Publisher#startVideoCapture} 前调用此接口。<br>
-    *     + 建议同一设备上的不同 Publisher 实例使用相同的视频采集参数。
     */
    /** {en}
     * @type api
     * @brief Set the video capture parameters.
-    * @param video_config See VideoConfig{@link #VideoConfig}.
+    * @param videoConfig See VideoConfig{@link #VideoConfig}.
     * @return   <br>
     *         + 0: Success; <br>
     *         + < 0: Failure; <br>
     * @notes   <br>
     *         + You must call this API before calling startVideoCapture{@link #Publisher#startVideoCapture}. <br>
-    *         + It is recommended that the Publisher instances of the same device use the same parameters.
     */
-    public abstract int setVideoConfig(VideoConfig video_config);
+    int setVideoConfig(VideoConfig videoConfig);
     /** {zh}
      * @type api
      * @brief 设置本地视频渲染时使用的视图。
@@ -115,7 +46,8 @@ public abstract class Publisher {
      *        + -1: 失败。 <br>
      * @notes <br>
      *        + 如果需要解除绑定，你可以调用本方法传入空视图。<br>
-     *        + 必须在调用 startVideoCapture{@link #Publisher#startVideoCapture} 前调用此接口。
+     *        + 必须在调用 startVideoCapture{@link #Publisher#startVideoCapture} 前调用此接口。 <br>
+     *        + 通过此接口，仅可以渲染通过 startVideoCapture{@link #Publisher#startVideoCapture} 采集到的视频数据。
      */
     /** {en}
      * @type api
@@ -127,8 +59,9 @@ public abstract class Publisher {
      * @notes  <br>
      *       + To unbind the view, call this API with the view set to `null`. <br>
      *       + Bind the view before calling startVideoCapture{@link #Publisher#startVideoCapture}. <br>
+     *       + With this API, you can only render the video data captured by startVideoCapture{@link #Publisher#startVideoCapture}.
      */
-    public abstract int setLocalView(View view);
+    int setLocalView(View view);
     /** {zh}
      * @type api
      * @brief 开启摄像头采集。默认为关闭状态。  <br>
@@ -151,7 +84,7 @@ public abstract class Publisher {
      *        + Call stopVideoCapture{@link #Publisher#stopVideoCapture} to stop video capture. <br>
      *        + The camera used for video capture is set by switchCamera{@link #Publisher#switchCamera}.
      */
-    public abstract int startVideoCapture();
+    int startVideoCapture();
     /** {zh}
      * @type api
      * @brief 关闭摄像头采集。
@@ -169,13 +102,13 @@ public abstract class Publisher {
      *         + 0: Success <br>
      *         + -1: Failure. The view is empty. <br>
      * @notes  <br>
-     *        + Call startVideoCapture {@link #RTCVideo#startVideoCapture} to enable video capture. <br>
+     *        + Call startVideoCapture startVideoCapture{@link #Publisher#startVideoCapture} to enable video capture. <br>
      *        + Without calling this API, the video capture sustains until the Publisher instance is destroyed.
      */
-    public abstract int stopVideoCapture();
+    int stopVideoCapture();
     /** {zh}
      * @type api
-     * @brief 使用内部采集时，切换使用的摄像头：前置或后置摄像头。
+     * @brief 切换摄像头采集时使用的前置/后置摄像头。
      * @return  <br>
      *        + 0：方法调用成功  <br>
      *        + < 0：方法调用失败  <br>
@@ -193,7 +126,7 @@ public abstract class Publisher {
      *         + Front-facing camera is the default camera. <br>
      *         + If the video capture is on-going, the switch is effective immediately. If the video capture is off, the set camera is used when video capture starts.
      */
-    public abstract int switchCamera();
+    int switchCamera();
     /** {zh}
      * @type api
      * @brief 开启麦克风采集。默认为关闭状态。  <br>
@@ -214,7 +147,7 @@ public abstract class Publisher {
      *        + Call stopAudioCapture{@link #Publisher#stopAudioCapture} to stop audio capture. <br>
      *        + You can call this API to start video capture whether to publish the audio stream.
      */
-    public abstract int startAudioCapture();
+    int startAudioCapture();
     /** {zh}
      * @type api
      * @brief 关闭麦克风采集。
@@ -235,12 +168,12 @@ public abstract class Publisher {
      *        + Call startAudioCapture{@link #Publisher#startAudioCapture} to enable audio capture. <br>
      *        + Without calling this API, the audio capture will sustain until the Publisher instance is destroyed.
      */
-    public abstract int stopAudioCapture();
+    int stopAudioCapture();
     /** {zh}
      * @type api
      * @brief 发布音视频流
      * @param url WHIP 请求的 url。<br>
-     *        url 由 WTN 固定域名 `https://wtn.volcvideo.com`，PUB 方法，appID，你设定的 streamID， token 和 TokenType 拼接得到。 <br>
+     *        url 由 WTN 固定域名 `https://wtn.volcvideo.com`，PUB 方法，appID，你设定的 streamID, token 和 TokenType 拼接得到。 <br>
      *        形如：`https://wtn.volcvideo.com/pub/<appID>/<streamID>?Token=<token>&TokenType=Bearer`
      * @return  <br>
      *        + 0：方法调用成功  <br>
@@ -248,14 +181,14 @@ public abstract class Publisher {
      * @notes <br>
      *        + 对于一个 Publisher 实例，仅能同时发布一路音视频流。重复调用此接口会失败。<br>
      *        + 无论是否开启音视频采集，你都可以调用此接口开启发布。<br>
-     *        + 调用此接口后，会收到 onPublishStateChanged{@link #PublisherEventHandler#onPublishStateChanged}。<br>
+     *        + 调用此接口后，会收到 onPublishStateChanged{@link #RtcEventHandler#onPublishStateChanged}。<br>
      *        + 调用 stopPublish{@link #Publisher#stopPublish} 取消发布。
      */
     /** {en}
      * @type api
      * @brief Publish the captured media stream.
      * @param url The url for WHIP request. <br>
-     *        Concatenate the fixed url `https://wtn.volcvideo.com`, PUB method, appID, your specified streamID，token and TokenType into the value of url. <br>
+     *        Concatenate the fixed url `https://wtn.volcvideo.com`, PUB method, appID, your specified streamID, token and TokenType into the value of url. <br>
      *        The url is like `https://wtn.volcvideo.com/pub/<appID>/<streamID>?Token=<token>&TokenType=Bearer`.
      * @return   <br>
      *         + 0: Success <br>
@@ -263,10 +196,10 @@ public abstract class Publisher {
      * @notes  <br>
      *        + You can only publish one media stream with one Publisher instance. Calling this API during publishing will fail. <br>
      *        + You can call this API to start publishing media streams with or without media capture. <br>
-     *        + After calling this API, you will receive onPublishStateChanged{@link #PublisherEventHandler#onPublishStateChanged}. <br>
+     *        + After calling this API, you will receive onPublishStateChanged{@link #RtcEventHandler#onPublishStateChanged}. <br>
      *        + Call stopPublish{@link #Publisher#stopPublish} to stop publishing the media stream.
      */
-    public abstract int startPublish(String url);
+    int startPublish(String url);
     /** {zh}
      * @type api
      * @brief 停止发布音视频流
@@ -275,7 +208,7 @@ public abstract class Publisher {
      *        + < 0：方法调用失败
      * @notes <br>
      *        + 调用 startPublish{@link #Publisher#startPublish} 发布音视频流。<br>
-     *        + 调用此接口后，会收到 onPublishStateChanged{@link #PublisherEventHandler#onPublishStateChanged}。
+     *        + 调用此接口后，会收到 onPublishStateChanged{@link #RtcEventHandler#onPublishStateChanged}。
      */
     /** {en}
      * @type api
@@ -285,9 +218,9 @@ public abstract class Publisher {
      *         + < 0: Failure <br>
      * @notes  <br>
      *         + Call startPublish{@link #Publisher#startPublish} to publish the media stream. <br>
-     *         + After calling this API, you will receive onPublishStateChanged{@link #PublisherEventHandler#onPublishStateChanged}.
+     *         + After calling this API, you will receive onPublishStateChanged{@link #RtcEventHandler#onPublishStateChanged}.
      */
-    public abstract int stopPublish();
+    int stopPublish();
     /** {zh}
      * @type api
      * @brief 查询音视频流发布状态
@@ -302,5 +235,111 @@ public abstract class Publisher {
      *        + true: Publishing. <br>
      *        + false：Not publishing. <br>
      */
-    public abstract boolean isPublishing();
+    boolean isPublishing();
+    /** {zh}
+     * @type api
+     * @brief 设置本地音频发送状态。
+     * @param mute 发送音频数据的状态。默认值为发送。<br>
+     *      + ture：不发送音频数据 <br>
+     *      + false：正常发送音频数据
+     * @notes 发布前后，采集前后都可调用。
+     * @return <br>
+     *      + 0：调用成功；<br>
+     *      + <0：调用失败
+     */
+    /** {en}
+     * @type api
+     * @brief Mute local audio or not.
+     * @param mute The mute status of the local audio. Not muted by default. <br>
+     *      + ture: do not send audio data. <br>
+     *      + false: send audio data.
+     * @notes You can call this API regardless of the capture status or publishing status of the audio.
+     * @return <br>
+     *      + 0: Success <br>
+     *      + <0: Failure
+     */
+    int setLocalAudioMute(boolean mute);
+    /** {zh}
+     * @type api
+     * @brief 设置本地视频发送状态。
+     * @param mute 发送视频数据的状态。默认值为发送。<br>
+     *      + ture：不发送视频数据 <br>
+     *      + false：正常发送视频数据
+     * @notes 发布前后，采集前后都可调用。
+     * @return <br>
+     *      + 0：调用成功；<br>
+     *      + <0：调用失败
+     */
+    /** {en}
+     * @type api
+     * @brief Mute local video or not.
+     * @param mute The mute status of the local video. Not muted by default. <br>
+     *      + ture: do not send video data. <br>
+     *      + false: send video data.
+     * @notes You can call this API regardless of the capture status or publishing status of the video.
+     * @return <br>
+     *      + 0: Success <br>
+     *      + <0: Failure
+     */
+    int setLocalVideoMute(boolean mute);
+    /** {zh}
+     * @type api
+     * @brief 推送外部编码帧。
+     * @param encodedFrame 外部编码帧。参看 EncodedVideoFrame{@link #EncodedVideoFrame}。在推送过程中，帧的分辨率应保持一致。
+     * @notes <br>
+     *      + 不支持编码反馈和请求关键帧反馈。<br>
+     *      + 根据实际帧率，周期推送外部编码帧。
+     * @return <br>
+     *      + 0：调用成功；<br>
+     *      + <0：调用失败
+     */
+    /** {en}
+     * @type api
+     * @brief Push external encoded frame.
+     * @param encodedFrame Encoded frame. See EncodedVideoFrame{@link #EncodedVideoFrame}. During the process, the resolution of the frames must remain the same.
+     * @notes <br>
+     *      + Do not support encoding feedback and request keyframe feedback. <br>
+     *      + Push externally encoded frames periodically according to the actual frame rate.
+     * @return <br>
+     *      + 0: Success <br>
+     *      + <0: Failure
+     */
+    boolean pushEncodedVideoFrame(EncodedVideoFrame encodedFrame);
+    /** {zh}
+     * @type api
+     * @brief 推送外部视频帧。
+     * @param videoFrame 视频帧。参看 VideoFrame{@link #VideoFrame}。在推送过程中，帧的分辨率应保持一致，帧的宽高应为 16 的倍数。
+     * @notes 根据实际帧率，周期推送外部编码帧。
+     * @return <br>
+     *      + 0：调用成功；<br>
+     *      + <0：调用失败
+     */
+    /** {en}
+     * @brief Push external video frame.
+     * @param videoFrame Encoded frame. See VideoFrame{@link #VideoFrame}. During the process, the resolution of the frames must remain the same. The frame width and the frame height must be multiples of 16.
+     * @notes Push external frames periodically according to the actual frame rate.
+     * @return <br>
+     *      + 0: Success <br>
+     *      + <0: Failure
+     */
+    boolean pushVideoFrame(VideoFrame videoFrame);
+    /** {zh}
+     * @type api
+     * @brief 推送外部音频帧
+     * @param audioFrame 音频帧。参看 AudioFrame{@link #AudioFrame}。在推送过程中，帧的参数应保持一致。
+     * @notes 周期推送外部编码帧。建议周期为 10 ms。
+     * @return <br>
+     *      + 0：调用成功；<br>
+     *      + <0：调用失败
+     */
+    /** {en}
+     * @type api
+     * @brief Push external audio data.
+     * @param audioFrame See AudioFrame{@link #AudioFrame}. During the process, the parameters of the frames must remain the same. 
+     * @notes Push external frames periodically. The period is recommended to be 10 ms.
+     * @return <br>
+     *      + 0: Success <br>
+     *      + <0: Failure
+     */
+     boolean pushAudioFrame(AudioFrame audioFrame);
 }

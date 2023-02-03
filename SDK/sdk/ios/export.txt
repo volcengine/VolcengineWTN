@@ -1,5 +1,14 @@
 
-_OBJC_CLASS_$_VideoConfig
-_OBJC_CLASS_$_Subscriber
-_OBJC_CLASS_$_Publisher
+_OBJC_CLASS_$_VEWTNEngine
+_OBJC_CLASS_$_VEWTNPublisher
+_OBJC_CLASS_$_VEWTNSubscriber
+_OBJC_CLASS_$_VEWTNPubExtraParam
+_OBJC_CLASS_$_VEWTNSubExtraParam
+_OBJC_CLASS_$_VEWTNEncodedVideoFrame
+_OBJC_CLASS_$_VEWTNVideoFrame
+_OBJC_CLASS_$_VEWTNAudioFrame
+_OBJC_CLASS_$_VEWTNVideoConfig
+_OBJC_CLASS_$_VEWTNStallInfo
+_OBJC_CLASS_$_VEWTNRTCAudioStats
+_OBJC_CLASS_$_VEWTNRTCVideoStats
 
