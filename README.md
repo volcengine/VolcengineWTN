@@ -1,6 +1,8 @@
 # VolcengineWTN
 
-## WTN 介绍
+> For English version, See [VolcengineWTN](README_en.md).
+
+## 概述
 
 [火山引擎 WebRTC 传输网络](https://www.volcengine.com/docs/6752/122560)（VolcEngine WebRTC Transmission Network，简写 WTN）构建于可支撑亿级 DAU 的全球实时传输网络之上，可以提供全球范围内高质量、低延时的实时音视频通信能力。
 
@@ -26,13 +28,13 @@ WTN 提供了基于 [WHIP](https://datatracker.ietf.org/doc/draft-ietf-wish-whip
 
 | 平台 | 项目工程 | 编译 SDK | API 文档 |
 | --- | --- | --- | --- |
-| Android | [Android](SDK/sdk/android/) | [编译 SDK](SDK/doc/Build_Instruction.md) | [API 文档](SDK/doc/Android/overview.md) |
-| iOS | [iOS](SDK/sdk/ios/) | [编译 SDK](SDK/doc/Build_Instruction.md) | [API 文档](SDK/doc/iOS/overview.md) |
+| Android | [Android](SDK/sdk/android/) | [编译 SDK](SDK/doc/en/Build_Instruction.md) | [API 文档](SDK/doc/en/Android/overview.md) |
+| iOS | [iOS](SDK/sdk/ios/) | [编译 SDK](SDK/doc/en/Build_Instruction.md) | [API 文档](SDK/doc/en/iOS/overview.md) |
 
 ## 示例 Demo
 
-WTN 也提供了 Android，iOS，Web 平台的 Demo 项目和 OBS 插件。
-你可以参考 Demo 项目，了解在对应平台的应用中集成社区版 SDK 的方式；也可以使用 OBS 插件，实现流的发布(类似直播推流)等功能。
+WTN 也提供了 Android， iOS，和 Web 平台的 Demo 项目和 OBS 插件。
+你可以参考 Demo 项目，了解在对应平台的应用中集成社区版 SDK 的方式；也可以使用 OBS 插件，实现直播等功能。参考对应文档进行试用：
 
 | 平台 | 跑通 Demo 文档 |
 | --- | --- |

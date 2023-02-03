@@ -22,7 +22,7 @@ if (NOT RTC_LIBRARY_STATIC.cache)
     set(RTC_LIBRARY_TYPE SHARED)
 endif ()
 
-if ( CMAKE_BUILD_TYPE STREQUAL "" )
+if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Debug")
 endif()
 
@@ -63,6 +63,8 @@ elseif (RTC_PLATFORM_IOS.cache)
         "${VEWTN_ROOT_DIR}/third_party/webrtc/ios/RTCEncodedImage+Private.o"
         "${VEWTN_ROOT_DIR}/third_party/webrtc/ios/NSString+StdString.o"
         )
+elseif (RTC_PLATFORM_LINUX.cache)
+    add_library(${TARGET_NAME} STATIC ${SOURCES})
 endif ()
 set_target_properties(${TARGET_NAME} PROPERTIES LINKER_LANGUAGE CXX)
 
@@ -81,4 +83,7 @@ if (RTC_PLATFORM_IOS.cache)
     include(${VEWTN_ROOT_DIR}/cmake/ios.cmake)
 elseif (RTC_PLATFORM_ANDROID.cache)
     include(${VEWTN_ROOT_DIR}/cmake/android.cmake)
+elseif (RTC_PLATFORM_LINUX.cache)
+    include(${VEWTN_ROOT_DIR}/cmake/linux.cmake)
 endif ()
+

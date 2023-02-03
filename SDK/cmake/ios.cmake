@@ -5,9 +5,10 @@ cmake_minimum_required(VERSION 3.10.0)
 target_compile_definitions(${TARGET_NAME} PRIVATE WEBRTC_POSIX WEBRTC_IOS WEBRTC_MAC)
 
 set(PUB_HEADERS
-        sdk/ios/veWTNDefines.h
-        sdk/ios/Publisher.h
-        sdk/ios/Subscriber.h
+        sdk/ios/VEWTNSubscriber.h
+        sdk/ios/VEWTNPublisher.h
+        sdk/ios/VEWTNEngine.h
+        sdk/ios/VEWTNDefines.h
         )
 set_target_properties(${TARGET_NAME} PROPERTIES
         FRAMEWORK TRUE
@@ -40,7 +41,9 @@ set_target_properties(${TARGET_NAME} PROPERTIES
         XCODE_ATTRIBUTE_DEBUG_INFORMATION_FORMAT "dwarf-with-dsym"
         XCODE_ATTRIBUTE_ENABLE_BITCODE "NO"
         XCODE_ATTRIBUTE_GCC_OPTIMIZATION_LEVEL[variant=Release] "z"
+        XCODE_ATTRIBUTE_SKIP_INSTALL[variant=Release] "YES"
         )
+        
 
 # set output name
 set_target_properties(${TARGET_NAME} PROPERTIES OUTPUT_NAME "veWTN")
@@ -76,8 +79,18 @@ set_cache(GENERATE_MASTER_OBJECT_FILE)
 byte_set_xcode_property(${TARGET_NAME} GENERATE_MASTER_OBJECT_FILE "${GENERATE_MASTER_OBJECT_FILE.cache}" All)
 byte_set_xcode_property(${TARGET_NAME} IPHONEOS_DEPLOYMENT_TARGET "9.0" All)
 
+
+if (DEFINED CODE_SIGN_IDENTITY)
+    byte_set_xcode_property(${TARGET_NAME} CODE_SIGN_IDENTITY "${CODE_SIGN_IDENTITY}")
+endif()
+
+if (DEFINED DEVELOPMENT_TEAM)
+    byte_set_xcode_property(${TARGET_NAME} DEVELOPMENT_TEAM "${DEVELOPMENT_TEAM}")
+endif()
+
+
 # include sdk directory
 target_include_directories(${TARGET_NAME} PRIVATE ${VEWTN_ROOT_DIR}/src/sdk/ios)
 
 # interface symbol export
-set_target_properties(${TARGET_NAME} PROPERTIES EXPORTED_SYMBOLS_FILE "${VEWTN_ROOT_DIR}/src/sdk/ios/export.txt")
+set_target_properties(${TARGET_NAME} PROPERTIES EXPORTED_SYMBOLS_FILE "${VEWTN_ROOT_DIR}/sdk/ios/export.txt")

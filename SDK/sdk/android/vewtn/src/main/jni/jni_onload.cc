@@ -1,11 +1,7 @@
 /*
- *  Copyright 2015 The WebRTC project authors. All Rights Reserved.
+ *  Copyright 2022 Beijing Volcanoengine Technology Ltd. All Rights Reserved.
  *
- *  Use of this source code is governed by a BSD-style license
- *  that can be found in the LICENSE file in the root of the source
- *  tree. An additional intellectual property rights grant can be found
- *  in the file PATENTS.  All contributing project authors may
- *  be found in the AUTHORS file in the root of the source tree.
+ *  SPDX-license-identifier: BSD-3-Clause
  */
 
 #include <jni.h>
@@ -26,8 +22,6 @@ extern "C" jint JNIEXPORT JNICALL JNI_OnLoad(JavaVM* jvm, void* reserved) {
     webrtc::InitAndroid(jvm);
     webrtc::JVM::Initialize(jvm);
     RTC_CHECK(rtc::InitializeSSL()) << "Failed to InitializeSSL()";
-
-    __android_log_print(ANDROID_LOG_ERROR, "base rtc_jni JNI_ONLOAD", "jni onload success");
     return JNI_VERSION_1_6;
 }
 
