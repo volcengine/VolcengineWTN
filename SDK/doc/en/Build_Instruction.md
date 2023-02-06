@@ -10,7 +10,7 @@ Before you compile the WTN SDK for Android, Android Studio must be installed.
 ### Stpes
 #### 1. Add WebRTC static library in the client SDK project
 
-1. Get WebRTC static libraries, including static libraries for arm64-v8a architecture and armeabib-v7a architecture. See [Compile the WebRTC static library](Build_webrtc.md).
+1. Get WebRTC static libraries, including static libraries for arm64-v8a architecture and armeabi-v7a architecture. See [Compile the WebRTC static library](Build_webrtc.md).
 2. Add the WebRTC static library file to the client SDK project:
      1. Copy the header files from the WebRTC static library to: `./third_party/webrtc/headers/`
      2. Copy the Android static library to the following path:
@@ -26,12 +26,12 @@ Open `./sdk/android` with Android Studio.
 ## Compile WTN SDK for iOS
 ### Prerequisites
 
-Before you compile the WTN SDK for iOS, Xcode must be installed.
+Before you compile the WTN SDK for iOS, Xcode and CMake must be installed.
 
 ### Steps
 #### 1. Add WebRTC static library in the client SDK project
 
-1. Get WebRTC static libraries, including static libraries for arm64 architecture and amrv7 architecture. See [Compile the WebRTC static library](Build_webrtc.md).
+1. Get WebRTC static libraries, including static libraries for arm64 architecture and armv7 architecture. See [Compile the WebRTC static library](Build_webrtc.md).
 2. Add the WebRTC static library file to the client SDK project:
      1. Copy the header files from the WebRTC static library to `./third_party/webrtc/headers/`;
      2. Copy the iOS static library to `./third_party/webrtc/ios/libwebrtc.a`.

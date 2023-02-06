@@ -1,11 +1,11 @@
 # Compile the WebRTC static library
 
-The WTN client SDK project is implemented based on the WebRTC SDK. Refer to this article to compile the WebRTC static libraries for Android and iOS.
-Note that to compile the WebRTC SDKs for Android and iOS, you need to do it on Linux and macOS systems respectively.
+The WTN client SDK project is implemented based on the WebRTC static library. Refer to this article to compile the WebRTC static libraries for Android and iOS.
+Note that to compile the WebRTC static library for Android and iOS, you need to do it on Linux and macOS systems respectively.
 
 ## Install depot_tools
 
-[depot_tools](https://chromium.googlesource.com/chromium/tools/depot_tools.git) is a common toolkit developed by Chromium. Before compiling the WebRTC SDK for Android and iOS, you must get the depot_tools project and configure environment variables on the development machine:
+[depot_tools](https://chromium.googlesource.com/chromium/tools/depot_tools.git) is a common toolkit developed by Chromium. Before compiling the WebRTC static library for Android and iOS, you must get the depot_tools project and configure environment variables on the development machine:
 
 
 ```
@@ -18,9 +18,9 @@ source $HOME/.bash_profile
 fetch --help
 ```
 
-## Compile WebRTC SDK for Android
+## Compile WebRTC static library for Android
 
-You need to compile the WebRTC SDK for WTN SDK for Android on a Linux system.
+You need to compile the WebRTC static library for WTN SDK for Android on a Linux system.
 
 ```
 // Get the source code of the WebRTC project
@@ -68,9 +68,9 @@ mkdir headers
 find . -name "*.h" | xargs -I {} cp --parents {} ./headers
 ```
 
-## Compile WebRTC SDK for iOS
+## Compile WebRTC static library for iOS
 
-You need to compile WebRTC SDK for WTN SDK for iOS on macOS system.
+You need to compile WebRTC static library for WTN SDK for iOS on macOS system.
 
 ```
 // Get the source code of the WebRTC project
