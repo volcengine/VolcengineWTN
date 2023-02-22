@@ -9,7 +9,7 @@ import { message, Modal } from 'antd';
 import rtcClient from '@/lib/RtcClient';
 import { DEFAULTCONFIG, isDev } from '@/config';
 import { ERRORTYPE, PEEREVENT } from '@/lib/interface';
-import { pubUrl } from "@/config"
+import { pubUrl } from '@/config';
 
 import Header from './Header';
 import StreamButtons from './StreamButtons';
@@ -64,12 +64,12 @@ function Push() {
   };
 
   useEffect(() => {
-	const pullUrl = isDev
-	? `http://${location.host}/view`
-	: `https://${location.host}/wtn/streamingwithurl/view`;
+    const pullUrl = isDev
+      ? `http://${location.host}/view`
+      : `https://${location.host}/wtn/streamingwithurl/view`;
     setPushAndPullUrl({
-      pushUrl:pubUrl,
-      pullUrl:pullUrl,
+      pushUrl: pubUrl,
+      pullUrl: pullUrl,
     });
   }, []);
 
@@ -104,6 +104,8 @@ function Push() {
 
   useEffect(() => {
     const play = async () => {
+      await rtcClient.getMediaDevices();
+
       // 1. 设置视频参数
       await rtcClient.setVideoCaptureConfig({
         ...DEFAULTCONFIG.resolution,

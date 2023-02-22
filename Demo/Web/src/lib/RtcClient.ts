@@ -35,6 +35,8 @@ class RtcClient extends Eventemitter {
 
   private _videoMute: boolean = false;
 
+  private devices: Devices | undefined;
+
   /**
    * 销毁状态
    */
@@ -148,7 +150,7 @@ class RtcClient extends Eventemitter {
   setVideoCaptureDevice = (device: string) => {
     this._localVideoTrack?.stop();
     this._localVideoDeviceId = device;
-    this.startAudioCapture(device);
+    this.startVideoCapture(device);
   };
 
   /**
@@ -239,6 +241,9 @@ class RtcClient extends Eventemitter {
    * @returns Promise<Devices>
    */
   getMediaDevices = (): Promise<Devices> => {
+    if (this.devices) {
+      return Promise.resolve(this.devices);
+    }
     if (!navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) {
       return Promise.reject(
         new Error(
@@ -270,6 +275,10 @@ class RtcClient extends Eventemitter {
             }
           });
 
+          this._localVideoDeviceId = items.videoin[0]?.deviceId;
+          this._localAudioDeviceId = items.audioin[0]?.deviceId;
+
+          this.devices = items;
           resolve(items);
         })
         .catch((error) => {
