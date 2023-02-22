@@ -1,28 +1,3 @@
-# WTN Demo
+此项目中提供了 Web 平台的音视频通话 Demo ，参考对应文档进行试用：[Web Demo](https://www.volcengine.com/docs/6752/132447)。
 
-WebRTC 传输网络 Demo
-
-## 运行项目
-
-```Shell
-yarn install
-
-yarn dev
-```
-
-## 项目结构
-
-```shell
-|-- Project
-  |-- assets 图片、字体等资源
-  |-- src 源代码
-    |-- app 请求封装
-    |-- components Demo中复用的组件
-    |-- lib WebRTC的封装
-	|-- locales 多语言
-    |-- pages 页面
-    |-- store 业务数据模型(redux)
-	|-- utils 公共函数
-    |-- config.ts 静态常量
-
-```
+The project implements Audio and Video call on Web platform. Refer to [Web Demo](https://www.volcengine.com/docs/6752/132447) to run and test the Demo.
