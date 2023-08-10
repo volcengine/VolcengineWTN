@@ -7,9 +7,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { message, Modal } from 'antd';
 import rtcClient from '@/lib/RtcClient';
-import { DEFAULTCONFIG, isDev } from '@/config';
+import { DEFAULTCONFIG, isDev, pubUrl } from '@/config';
 import { ERRORTYPE, PEEREVENT } from '@/lib/interface';
-import { pubUrl } from '@/config';
 
 import Header from './Header';
 import StreamButtons from './StreamButtons';
@@ -69,7 +68,7 @@ function Push() {
       : `https://${location.host}/wtn/streamingwithurl/view`;
     setPushAndPullUrl({
       pushUrl: pubUrl,
-      pullUrl: pullUrl,
+      pullUrl,
     });
   }, []);
 
