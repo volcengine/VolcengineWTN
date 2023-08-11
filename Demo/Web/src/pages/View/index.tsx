@@ -9,7 +9,7 @@ import { PoweroffOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 import rtcClient from '@/lib/RtcClient';
 import { ERRORTYPE, PEEREVENT } from '@/lib/interface';
-import { subUrl } from "@/config"
+import { subUrl } from '@/config';
 
 import Header from './Header';
 import styles from './index.module.less';
