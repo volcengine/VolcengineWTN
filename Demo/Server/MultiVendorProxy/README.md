@@ -23,7 +23,7 @@
 ├── router_gen.go
 ├── script
 │   └── bootstrap.sh
-└── whipsdk             // 字节提供的SDK代码包
+└── whipsdk         
     ├── README.md
     ├── error.go
     ├── error_test.go
@@ -178,11 +178,7 @@ $ sh build.sh
 # 编译之后，会在当前目录下生成一个目录output,执行如下命令启动服务
 $ output/bootstrap.sh
 
-2023/04/17 17:02:15.056515 engine.go:617: [Debug] HERTZ: Method=GET    absolutePath=/whip/ping                --> handlerName=proxy_server/biz/handler.Ping (num=2 handlers)
-2023/04/17 17:02:15.056659 engine.go:617: [Debug] HERTZ: Method=POST   absolutePath=/whip/proxy               --> handlerName=proxy_server/biz/handler.Proxy (num=2 handlers)
-2023/04/17 17:02:15.056667 engine.go:617: [Debug] HERTZ: Method=POST   absolutePath=/whip/genByteRTCToken     --> handlerName=proxy_server/biz/handler.GenTokenForTest (num=2 handlers)
-2023/04/17 17:02:15.056794 engine.go:389: [Info] HERTZ: Using network library=netpoll
-2023/04/17 17:02:15.057032 transport.go:109: [Info] HERTZ: HTTP server listening on address=[::]:8789
+xxxx/xx/xx 17:02:15.057032 transport.go:109: [Info] HERTZ: HTTP server listening on address=[::]:8789
 
 ```
 

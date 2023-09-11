@@ -91,6 +91,6 @@ func GenTokenForTest(ctx context.Context, c *app.RequestContext) {
 	params := whipsdk.MarshalToString(req)
 	c.JSON(http.StatusOK, utils.H{
 		"params": params,
-		"token":  whipsdk.GenByteRTCToken(params, secret),
+		"token":  whipsdk.GenToken(params, secret),
 	})
 }

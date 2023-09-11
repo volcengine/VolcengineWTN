@@ -12,20 +12,19 @@ func Test_GenWhipParams(t *testing.T) {
 	v := newVendor(&VendorInfo{})
 	assert.NotNil(t, v)
 
-	// agora
 	vi := &VendorInfo{
-		VendorCode: CodeAgora,
-		VAppId:     "agora_appid",
-		Domain:     "http://www.agora.com",
+		VendorCode: CodeA,
+		VAppId:     "a_appid",
+		Domain:     "http://www.vendora.com",
 		Secret:     "secret",
 	}
-	vAgora := newVendor(vi)
+	_vendorA := newVendor(vi)
 
 	mute := true
 
 	ctx := context.Background()
 	info := WhipReq{
-		VendorCode:        CodeAgora,
+		VendorCode:        CodeA,
 		AppId:             "rtcappId",
 		SDP:               "",
 		MuteAudio:         &mute,
@@ -39,7 +38,7 @@ func Test_GenWhipParams(t *testing.T) {
 		HeaderParams:      nil,
 		url:               "",
 	}
-	err := vAgora.GenWhipParams(ctx, &info)
+	err := _vendorA.GenWhipParams(ctx, &info)
 	assert.Nil(t, err)
 	assert.Equal(t, "1", info.QueryParams["NoEncrypt"])
 	assert.Equal(t, "true", info.QueryParams["MuteAudio"])
@@ -51,31 +50,30 @@ func Test_GenWhipParams(t *testing.T) {
 	assert.True(t, info.HeaderParams["Content-Type"] == "application/sdp")
 
 	info.Action = actionSub
-	vAgora.GenWhipParams(ctx, &info)
+	_vendorA.GenWhipParams(ctx, &info)
 	assert.Equal(t, "true", info.QueryParams["DisableDownlinkFb"])
 
-	// trtc
 	vi = &VendorInfo{
-		VendorCode: CodeTrtc,
-		VAppId:     "trtc_appid",
-		Domain:     "http://www.trtc.com",
+		VendorCode: CodeT,
+		VAppId:     "t_appid",
+		Domain:     "http://www.vendort.com",
 		Secret:     "secret",
 	}
-	info.VendorCode = CodeTrtc
+	info.VendorCode = CodeT
 	info.QueryParams = nil
 	info.HeaderParams = nil
 	info.SessionId = "xxxsid"
 
-	_trtc := newVendor(vi)
-	err = _trtc.GenWhipParams(ctx, &info)
+	_vendorT := newVendor(vi)
+	err = _vendorT.GenWhipParams(ctx, &info)
 	assert.NotNil(t, err)
 	code, msg, origin := GetCodeAndMessage(err)
 	assert.Equal(t, http.StatusInternalServerError, code)
 	assert.Equal(t, MsgOriginWhipsdk, origin)
-	assert.Contains(t, msg, "ailed to convert trtc app id")
+	assert.Contains(t, msg, "ailed to convert vendor app id")
 
 	vi.VAppId = "123"
-	err = _trtc.GenWhipParams(ctx, &info)
+	err = _vendorT.GenWhipParams(ctx, &info)
 	assert.Nil(t, err)
 	assert.Equal(t, "", info.QueryParams["NoEncrypt"])
 	assert.Equal(t, "true", info.QueryParams["MuteAudio"])
