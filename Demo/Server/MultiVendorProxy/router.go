@@ -16,6 +16,6 @@ func customizedRegister(r *server.Hertz) {
 		whipGrop.POST("/proxy", handler.Proxy)
 
 		// only for test
-		whipGrop.POST("/genByteRTCToken", handler.GenTokenForTest)
+		whipGrop.POST("/genToken", handler.GenTokenForTest)
 	}
 }

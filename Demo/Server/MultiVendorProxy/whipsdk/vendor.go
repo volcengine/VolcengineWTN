@@ -17,7 +17,6 @@ type VendorCode int
 const (
 	CodeA VendorCode = 2
 	CodeT VendorCode = 3
-	CodeH VendorCode = 5
 )
 
 type MediaVendor interface {
