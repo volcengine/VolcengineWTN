@@ -6,9 +6,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/golang-jwt/jwt"
-
 	"github.com/bytedance/sonic"
+	"github.com/golang-jwt/jwt"
 )
 
 func InStringSlice(set []string, s string) bool {
@@ -30,7 +29,7 @@ func MarshalToString(v interface{}) string {
 	return string(b)
 }
 
-func GenByteRTCToken(params string, secret []byte) string {
+func GenToken(params string, secret []byte) string {
 	sha := sha256.New()
 	sha.Write([]byte(params))
 	hashVal := sha.Sum(nil)

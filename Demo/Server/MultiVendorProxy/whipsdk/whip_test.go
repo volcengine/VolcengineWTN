@@ -68,7 +68,7 @@ func TestWhipProxy_SendWhip(t *testing.T) {
 	ctx := context.Background()
 
 	wReq := &WhipReq{
-		VendorCode:        CodeAgora,
+		VendorCode:        CodeA,
 		AppId:             "rtcAppid",
 		SDP:               "i am sdp offer!",
 		ClientIP:          "1.1.1.1",
@@ -153,7 +153,7 @@ func TestWhipProxy_updateAndDel(t *testing.T) {
 	ctx := context.Background()
 	muteAudio := false
 	wReq := &WhipReq{
-		VendorCode: CodeTrtc,
+		VendorCode: CodeT,
 		AppId:      "456",
 		SDP:        "sdp",
 		MuteAudio:  &muteAudio,
@@ -237,7 +237,7 @@ func TestWhipProxy_CheckToken(t *testing.T) {
     "queryParams":null,
     "headerParams":null
 }`
-	token := GenByteRTCToken(params, secret)
+	token := GenToken(params, secret)
 	t.Logf("token:%s\n", token)
 
 	_, err := proxy.CheckToken(ctx, params, "xxx")

@@ -15,9 +15,9 @@ import (
 type VendorCode int
 
 const (
-	CodeAgora VendorCode = 2
-	CodeTrtc  VendorCode = 3
-	CodeHWL   VendorCode = 5
+	CodeA VendorCode = 2
+	CodeT VendorCode = 3
+	CodeH VendorCode = 5
 )
 
 type MediaVendor interface {
@@ -26,10 +26,10 @@ type MediaVendor interface {
 
 func newVendor(vInfo *VendorInfo) MediaVendor {
 	switch vInfo.VendorCode {
-	case CodeAgora:
-		return &agora{baseVendor{vInfo}}
-	case CodeTrtc:
-		return &trtc{baseVendor{vInfo}}
+	case CodeA:
+		return &vendorA{baseVendor{vInfo}}
+	case CodeT:
+		return &vendorT{baseVendor{vInfo}}
 	default:
 		return &baseVendor{vInfo}
 	}
@@ -97,11 +97,11 @@ func (b *baseVendor) GenWhipParams(ctx context.Context, req *WhipReq) error {
 	return nil
 }
 
-type agora struct {
+type vendorA struct {
 	baseVendor
 }
 
-func (a *agora) GenWhipParams(ctx context.Context, req *WhipReq) error {
+func (a *vendorA) GenWhipParams(ctx context.Context, req *WhipReq) error {
 	err := a.baseVendor.GenWhipParams(ctx, req)
 	if err != nil {
 		return err
@@ -110,16 +110,16 @@ func (a *agora) GenWhipParams(ctx context.Context, req *WhipReq) error {
 	return nil
 }
 
-type trtc struct {
+type vendorT struct {
 	baseVendor
 }
 
-func (t *trtc) GenWhipParams(ctx context.Context, req *WhipReq) error {
+func (t *vendorT) GenWhipParams(ctx context.Context, req *WhipReq) error {
 	appID, err := strconv.Atoi(t.vInfo.VAppId)
 	if err != nil {
 		return &WhipError{
 			Code:      http.StatusInternalServerError,
-			Msg:       "failed to convert trtc app id " + t.vInfo.VAppId,
+			Msg:       "failed to convert vendor app id " + t.vInfo.VAppId,
 			MsgOrigin: MsgOriginWhipsdk,
 		}
 	}
@@ -128,7 +128,7 @@ func (t *trtc) GenWhipParams(ctx context.Context, req *WhipReq) error {
 	if err != nil {
 		return &WhipError{
 			Code:      http.StatusInternalServerError,
-			Msg:       "failed to get trtc user sig",
+			Msg:       "failed to get user sig",
 			MsgOrigin: MsgOriginWhipsdk,
 		}
 	}
